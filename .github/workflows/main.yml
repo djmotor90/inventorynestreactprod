@@ -25,9 +25,10 @@ jobs:
         script: |
           sudo apt-get update
           sudo apt-get install -y nodejs npm
+          sudo npm install -g pm2
           cd inventorynestreactprod
           git pull origin master
           git status
           npm install --only=prod
           npm run build
-          
+          pm2 reload inventorynestreactprod || pm2 serve ./build 3000 --name inventorynestreactprod --spa
