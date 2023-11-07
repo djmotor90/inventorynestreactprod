@@ -31,5 +31,5 @@ jobs:
           git status
           npm install --only=prod
           npm run build
-          pm2 reload app-name || pm2 start serve -n app-name -- -s build
+          pm2 reload inventorynestreactprod || pm2 start serve -n inventorynestreactprod -- -s build
           
