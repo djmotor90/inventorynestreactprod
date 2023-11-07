@@ -25,6 +25,7 @@ jobs:
         script: |
           sudo apt-get update
           sudo apt-get install -y nodejs npm
+          npm install -g pm2
           cd inventorynestreactprod
           git pull origin master
           git status
