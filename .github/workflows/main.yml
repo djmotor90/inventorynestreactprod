@@ -28,4 +28,4 @@ jobs:
           git status
           npm install --only=prod
           npm run build
-          pm2 reload inventorynestreactprod || pm2 serve build --name inventorynestreactprod --spa --watch
+          pm2 reload inventorynestreactprod || pm2 serve ./build 3000 --name inventorynestreactprod --spa --watch
