@@ -1,1 +1,7 @@
-//we need links to multiple things on clickup 
+export default function VerticalNavbar() {
+    return(
+        <div id="verticalNavbar">
+            
+        </div>
+    )
+}

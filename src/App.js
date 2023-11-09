@@ -1,21 +1,30 @@
-import logo from './logo.svg';
+//Import in all needed hooks and dependencies
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom'
+
+//Import in all CSS and prestyled components
 import './App.css';
 
-//make a horiztonal and vertical navbar
+//Import in our custom components
+  //Custom components making the general frame
+import HorizontalNavbar from './Components/HorizontalNavbar';
+import VerticalNavbar   from './Components/VerticalNavbar';
+  //Custome components making the routes
+import Home             from './Components/Home'
+
 
 function App() {
   return (
     <div className="App">
       <Router>
         <HorizontalNavbar/>
+        <Home/>
         <VerticalNavbar/>
         <Routes>
           <Route exact path='/' element={<Home />}/>
-          <Route path='/products' element={<Products/>}/>
-          <Route path='/products/new' element={<NewProduct/>}/>
-          <Route path='/products/:id' element={<ShowProduct/>}/>
-          <Route path='/warehouses' element = {<Warehouses/>}/>
-
+          <Route path='/products' element={<Home/>}/>
+          <Route path='/products/new' element={<Home/>}/>
+          <Route path='/products/:id' element={<Home/>}/>
+          <Route path='/warehouses' element = {<Home/>}/>
         </Routes>
       </Router>
     </div>

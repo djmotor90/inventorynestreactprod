@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+#userIcon
+{
+  -webkit-filter: invert(100%); /* Safari/Chrome */
+  filter: invert(100%);
+}
