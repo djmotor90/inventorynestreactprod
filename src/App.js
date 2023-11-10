@@ -17,7 +17,6 @@ function App() {
     <div className="App">
       <Router>
         <HorizontalNavbar/>
-        <Home/>
         <VerticalNavbar/>
         <Routes>
           <Route exact path='/' element={<Home />}/>
