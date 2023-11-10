@@ -10,7 +10,6 @@ function ReportingCard({ data }) {
     {
        return new Date(longDate).toUTCString();
     }
-    console.log(data[0])
     const cards = () => {
         return(
             data.map((element, i) => (

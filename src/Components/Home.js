@@ -8,12 +8,14 @@ import Col       from 'react-bootstrap/Col';
 //Import in all components
 import ReportingCard from './ReportingCard';
 import LandingCard   from './LandingCards';
-import BarPlot   from './BarPlot';
+import BarPlot       from './BarPlot';
+import MapPlot       from './MapPlot';
 
 function Home( { ownerName }) {
   const [cardData, setCardData] = useState(null);
   const [barData, setbarData] = useState(null);
   const [transferData, setTransferData] = useState(null);
+  const [mapPlotData, setMapPlotData] = useState(null);
   const makeAPICall = async () => {
     try {
       const response = await fetch('http://localhost:3001/', {mode:'cors'});
@@ -21,6 +23,7 @@ function Home( { ownerName }) {
       setTransferData(data.transferInformation);
       setbarData(data.barInformation);
       setCardData(data.cardInformation);
+      setMapPlotData(data.mapInformation);
     }
     catch (e) {
       console.log(e, 'error')
@@ -33,6 +36,7 @@ function Home( { ownerName }) {
   const displayTransferData = transferData  && <ReportingCard data = {transferData}/>;
   const displayCards = cardData  && <LandingCard data = {cardData} />;
   const displayScatter = barData && <BarPlot data = {barData} />;
+  const displayMapPlot = mapPlotData && <MapPlot data={mapPlotData}/>
 
   return (
     <div>
@@ -43,9 +47,8 @@ function Home( { ownerName }) {
         <Col sm={5} className="min-w-600" > {displayScatter}</Col>
       </Row>
       <Row>
-        <Col sm>sm=true</Col>
-        <Col sm>sm=true</Col>
-        <Col sm>{displayTransferData}</Col>
+        <Col sm={8}> {displayMapPlot} </Col>
+        <Col sm={4}>{displayTransferData}</Col>
       </Row>
     </Container>
 
