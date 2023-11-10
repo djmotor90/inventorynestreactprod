@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import ReportingCard from './ReportingCard';
 import LandingCard   from './LandingCards';
 
-function Home() {
+function Home( { ownerName }) {
   const [cardData, setCardData] = useState(null);
   const [scatterData, setScatterData] = useState(null);
   const [transferData, setTransferData] = useState(null);
@@ -26,11 +26,11 @@ function Home() {
   }, [])
   //Purpose: only try to fill page if data is loaded
   const displayTransferData = transferData  && <ReportingCard data = {transferData}/>;
-  const displayCards = cardData  && <LandingCard data = {cardData}/>;
+  const displayCards = cardData  && <LandingCard data = {cardData} />;
 
   return (
     <div>
-      <p>Test</p>
+      <p>Welcome home, {ownerName} </p>
       {displayCards}
       {displayTransferData}
     </div>

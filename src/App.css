@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  background-color: rgba(40, 44, 52, 0.756);
+  color: white;
+  
 }
 
 .App-logo {
@@ -42,3 +45,4 @@
   -webkit-filter: invert(100%); /* Safari/Chrome */
   filter: invert(100%);
 }
+

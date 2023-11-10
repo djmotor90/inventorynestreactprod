@@ -7,8 +7,7 @@ import './App.css';
 
 //Import in our custom components
   //Custom components making the general frame
-import HorizontalNavbar from './Components/HorizontalNavbar';
-import VerticalNavbar   from './Components/VerticalNavbar';
+import Navbar from './Components/Navbar'
   //Custome components making the routes
 import Home             from './Components/Home'
 
@@ -34,10 +33,9 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <HorizontalNavbar ownerName={ownerName} />
-        <VerticalNavbar/>
+        <Navbar ownerName={ownerName}/>
         <Routes>
-          <Route exact path='/' element={<Home />}/>
+          <Route exact path='/' element={<Home ownerName={ownerName} />}/>
           <Route path='/products' element={<Home/>}/>
           <Route path='/products/new' element={<Home/>}/>
           <Route path='/products/:id' element={<Home/>}/>
