@@ -10,6 +10,7 @@ import './App.css';
 import Navbar from './Components/Navbar'
   //Custome components making the routes
 import Home             from './Components/Home'
+import ShowProducts     from './Components/ShowProducts'
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
         <Navbar ownerName={ownerName}/>
         <Routes>
           <Route exact path='/' element={<Home ownerName={ownerName} />}/>
-          <Route path='/products' element={<Home/>}/>
+          <Route path='/products' element={<ShowProducts/>}/>
           <Route path='/products/new' element={<Home/>}/>
           <Route path='/products/:id' element={<Home/>}/>
           <Route path='/warehouses' element = {<Home/>}/>
