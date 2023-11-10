@@ -10,7 +10,7 @@ function LandingCard({ data }) {
     return(
         <ListGroup horizontal data-bs-theme="dark">
             <ListGroup.Item>
-                <Card style={{ width: '18rem' }}>
+                <Card>
                     <Card.Img variant="top" src="https://placehold.co/600x400" />
                     <Card.Body>
                         <Card.Title> Customers </Card.Title>
@@ -22,7 +22,7 @@ function LandingCard({ data }) {
                 </Card>
             </ListGroup.Item>
             <ListGroup.Item>
-                <Card style={{ width: '18rem' }}>
+                <Card>
                     <Card.Img variant="top" src="https://placehold.co/600x400" />
                     <Card.Body>
                         <Card.Title> Warehouses </Card.Title>
@@ -34,7 +34,7 @@ function LandingCard({ data }) {
                 </Card>
             </ListGroup.Item>
             <ListGroup.Item>
-                <Card style={{ width: '18rem' }}>
+                <Card>
                     <Card.Img variant="top" src="https://placehold.co/600x400" />
                     <Card.Body>
                         <Card.Title> Sales </Card.Title>
@@ -46,7 +46,7 @@ function LandingCard({ data }) {
                 </Card>
             </ListGroup.Item>
             <ListGroup.Item>
-                <Card style={{ width: '18rem' }}>
+                <Card>
                     <Card.Img variant="top" src="https://placehold.co/600x400" />
                     <Card.Body>
                         <Card.Title> Revenue </Card.Title>
