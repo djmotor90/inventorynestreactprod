@@ -1,7 +1,7 @@
 //import all dependencies and Hooks
 import { useEffect, useState } from "react";
 import { Link }                from "react-router-dom";
-import GeneralTable            from './GeneralTable'
+import GeneralTable            from '../GeneralTable'
 
 
 

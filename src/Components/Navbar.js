@@ -40,10 +40,49 @@ function OffcanvasExample( { ownerName }) {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <Nav.Link href="#action1">Home</Nav.Link>
-                    <Nav.Link href="#action2">Link</Nav.Link>
+                    <Nav.Link><Link to = "/" relative="path"> Return Home </Link></Nav.Link>
+                    <Nav.Link><Link to = "/" relative="path"> User Manual </Link></Nav.Link>
                     <NavDropdown
-                        title="Dropdown"
+                        title="Products"
+                        id={`offcanvasNavbarDropdown-expand-${expand}`}
+                    >
+                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                        <NavDropdown.Item href="#action4">
+                        Another action
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item>
+                            Products is where you can browse all products offered across all warehouses, 
+                        </NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown
+                        title="Warehouses"
+                        id={`offcanvasNavbarDropdown-expand-${expand}`}
+                    >
+                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                        <NavDropdown.Item href="#action4">
+                        Another action
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#action5">
+                        Something else here
+                        </NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown
+                        title="Customers"
+                        id={`offcanvasNavbarDropdown-expand-${expand}`}
+                    >
+                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                        <NavDropdown.Item href="#action4">
+                        Another action
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#action5">
+                        Something else here
+                        </NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown
+                        title="Analytics"
                         id={`offcanvasNavbarDropdown-expand-${expand}`}
                     >
                         <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
@@ -56,15 +95,6 @@ function OffcanvasExample( { ownerName }) {
                         </NavDropdown.Item>
                     </NavDropdown>
                     </Nav>
-                    <Form className="d-flex">
-                    <Form.Control
-                        type="search"
-                        placeholder="Search"
-                        className="me-2"
-                        aria-label="Search"
-                    />
-                    <Button variant="outline-success">Search</Button>
-                    </Form>
                 </Offcanvas.Body>
             </Navbar.Offcanvas>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />

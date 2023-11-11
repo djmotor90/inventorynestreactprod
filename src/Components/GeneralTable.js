@@ -46,6 +46,10 @@ function GeneralTable ({ data }){
             </tr>
         )
     });
+    //TODO: add pagination
+    //TODO: add a link to each row
+    //TODO: add searching functionality via a form
+    //TODO: add 
     return(
             <Table responsive striped="columns" data-bs-theme="dark">
                 <thead>

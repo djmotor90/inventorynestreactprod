@@ -6,10 +6,10 @@ import Container from 'react-bootstrap/Container';
 import Row       from 'react-bootstrap/Row';
 import Col       from 'react-bootstrap/Col';
 //Import in all components
-import ReportingCard from './ReportingCard';
-import LandingCard   from './LandingCards';
-import BarPlot       from './BarPlot';
-import MapPlot       from './MapPlot';
+import ReportingCard from '../ReportingCard';
+import LandingCard   from '../LandingCards';
+import BarPlot       from '../BarPlot';
+import MapPlot       from '../MapPlot';
 
 function Home( { ownerName }) {
   const [cardData, setCardData] = useState(null);
