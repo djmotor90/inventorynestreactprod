@@ -22,10 +22,14 @@ function NewProduct (){
       //once the data is loaded in display the information
       const displayForm = formInputData  && <NewForm data = {formInputData} path= 'products'/>;
     return(
-        <div>
-            <p> New Prod</p>
-            {displayForm}
-        </div>
+      <div>
+          <div>
+              <h2> Create a New Product </h2>
+                {displayForm}
+          </div>
+
+      </div>
+
 
     );
 }
