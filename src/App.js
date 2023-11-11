@@ -10,7 +10,7 @@ import Navbar           from './Components/Navbar';
 import Home               from './Components/Routes/Home';
 import ShowProducts       from './Components/Routes/ShowProducts';
 import ShowProduct        from './Components/Routes/ShowProduct';
-import NewProduct         from './Components/Routes/ShowProduct';
+import NewProduct         from './Components/Routes/NewProduct';
 import ShowWarehouses     from './Components/Routes/ShowWarehouses';
 import ShowWarehouse      from './Components/Routes/ShowWarehouse';
 import NewWarehouse       from './Components/Routes/NewWarehouse';
