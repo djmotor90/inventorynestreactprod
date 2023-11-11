@@ -9,7 +9,6 @@ function NewProduct (){
         try {
           const response = await fetch('http://localhost:3001/products/new', {mode:'cors'});
           const data = await response.json();
-          console.log(data);
           setFormInputData(data);
         }
         catch (e) {

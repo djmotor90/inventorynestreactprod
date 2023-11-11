@@ -1,12 +1,62 @@
 //Note: this could probably just be generalized out to form eventually, but fr now this will generate just blank forms
 //Import in all required hooks and dependencies
-import { useEffect, useState } from "react";
+import { useState }    from "react";
+import { useNavigate } from "react-router-dom"; 
 //Import  in all components
 import Form   from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function NewForm ({ data, path }){
-    console.log(data);
+    //make an initial state for every key in your data object and set them to empty
+    //TODO this isnt working as a state variable
+    const INITIAL_STATE = {
+        product_name:"",
+        product_category:"Electronics",
+        product_description:"",
+        product_picture_filename:"",
+        product_provider_price:"",
+        product_sale_price:"",
+        product_weight:""
+    };
+    //Object.keys(data).map(key => {
+    //    return INITIAL_STATE[key] = '';
+    //});
+    const navigate = useNavigate();
+    const [postData, setPostData] = useState(INITIAL_STATE);
+    const [test, setTest] = useState('')
+    //Next, on user input, update any state variable (this likely wont work for files, i will have to find that out later)
+    const handleChange = (event) =>{
+        console.log(event.target.name);
+        setPostData({ ...postData, [event.target.name] : event.target.value });
+        setTest(event.target.value);
+        console.log(postData)
+    };
+    // Next, on user submit, we will post to the database
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        //harcoding the localhost URL for now, ideally should be in a .env but cloning from github got confusing for them when it was there
+        const url = (`http://localhost:3001/${path}`)
+        console.log(url)
+        const response = await fetch(url, {
+            method : 'POST',
+            headers: {
+                'accept'       : 'application/json',
+                'content-type' : 'application/json'
+            },
+            body   : JSON.stringify(postData)
+        },{mode:'cors'});
+        if(response.status !== 201)
+        {
+            //handle error here
+        }
+        else
+        {
+            console.log(response);
+            const message = await response.json();
+            console.log(message)
+            navigate(`/${path}/?success=${message.message}`);
+        }
+    }
     //loop through all you cols to get inputs
     const formInputs = Object.keys(data).map(key => {
         const colName = key;
@@ -16,15 +66,17 @@ function NewForm ({ data, path }){
         {
             case "select":
                 //helper fxn for select
-                const options = data[key][1].map(value => {
+                //in case they never touch it set the state variable at the very beginning because apparently it wont
+                //INITIAL_STATE[key] = data[key][0];
+                const options = data[key][1].map((value,i) => {
                     return (
-                        <option value={value}>{value}</option>
+                        <option key={i} value={value} >{value}</option>
                     )
                 });
                 return(
                     <Form.Group key={key} className="mb-3">
                     <Form.Label> {key}: </Form.Label>
-                        <Form.Select id={key} required={required}>
+                        <Form.Select name={key} required={required} onChange={handleChange} value={postData[key]}>
                             {options}
                         </Form.Select>
                     </Form.Group>
@@ -34,28 +86,28 @@ function NewForm ({ data, path }){
                 return(
                     <Form.Group key={key} controlId="formFile" className="mb-3">
                     <Form.Label> Upload a Picture for {key}: </Form.Label>
-                         <Form.Control id={key} type="file" required={required} />
+                         <Form.Control name={key} value={postData[key]} type="file" required={required} onChange={handleChange} />
                     </Form.Group>
                 );
             case 'text':
                 return(
                     <Form.Group key={key} className="mb-3">
                     <Form.Label>{key}: </Form.Label>
-                         <Form.Control id={key} type="text" required={required} />
+                         <Form.Control name={key} value={postData[key]} type="text" required={required} onChange={handleChange} />
                     </Form.Group>  
                 );
             case 'number':
                 return(
                     <Form.Group key={key} className="mb-3">
                     <Form.Label>{key}: </Form.Label>
-                         <Form.Control id={key} type="number" required={required} />
+                         <Form.Control name={key} value={postData[key]} type="number" required={required} onChange={handleChange} />
                     </Form.Group>  
                 );
             case 'date':
                 return(
                     <Form.Group key={key} className="mb-3">
                     <Form.Label>{key}: </Form.Label>
-                         <Form.Control id={key} type="date" required={required} />
+                         <Form.Control name={key} value={postData[key]} type="date" required={required} onChange={handleChange} />
                     </Form.Group>  
                 );
         };
@@ -63,9 +115,9 @@ function NewForm ({ data, path }){
 
     return(
 
-        <Form data-bs-theme="dark">
+        <Form data-bs-theme="dark" onSubmit={handleSubmit}>
             {formInputs}
-            <Button variant="primary" type="submit" onClick={''}>
+            <Button variant="primary" type="submit">
                 Create a New Entry
             </Button>
         </Form>
