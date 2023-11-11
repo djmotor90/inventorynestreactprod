@@ -46,6 +46,7 @@ function GeneralTable ({ data }){
             </tr>
         )
     });
+    //Rhionna is working from her branch here:
     //TODO: add pagination
     //TODO: add a link to each row
     //TODO: add searching functionality via a form
