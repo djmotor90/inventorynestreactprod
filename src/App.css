@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  background-color: rgba(40, 44, 52, 0.756);
+  color: white;
+
 }
 
 .App-logo {
@@ -28,11 +31,21 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+#userIcon
+{
+  -webkit-filter: invert(100%); /* Safari/Chrome */
+  filter: invert(100%);
+}
+
+.navbarDropDownDescription
+{
+   padding: 3px 20px 1px 20px;
+   color:#61dafb;
+
+}
+
+.hoverAbleTableRow:hover
+{
+    background-color: 'green';
 }
