@@ -44,3 +44,8 @@
    color:#61dafb;
 
 }
+
+.hoverAbleTableRow:hover
+{
+    background-color: 'green';
+}

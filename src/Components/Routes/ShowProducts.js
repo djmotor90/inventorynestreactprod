@@ -51,7 +51,10 @@ function ShowProducts (){
               </Toast.Header>
               <Toast.Body> You have successfully added a new Product to the Database.</Toast.Body>
             </Toast>
+              
+              <Container>
 
+              </Container>
             {displayTable}
         </div>
     );

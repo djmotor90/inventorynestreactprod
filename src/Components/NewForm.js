@@ -6,29 +6,32 @@ import { useNavigate } from "react-router-dom";
 import Form   from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-function NewForm ({ data, path }){
+function NewForm ({ data, path, values }){
     //make an initial state for every key in your data object and set them to empty
     //TODO this isnt working as a state variable
     const INITIAL_STATE = {
-        product_name:"",
-        product_category:"Electronics",
-        product_description:"",
-        product_picture_filename:"",
-        product_provider_price:"",
-        product_sale_price:"",
-        product_weight:""
+
     };
-    //Object.keys(data).map(key => {
-    //    return INITIAL_STATE[key] = '';
-    //});
+    Object.keys(data).map(key => {
+        if (data[key][0] == 'select')
+        {
+            console.log(data[key][1][0])
+            return INITIAL_STATE[key] = data[key][1][0];
+        }
+        else
+        {
+            return INITIAL_STATE[key] = '';
+        }
+        
+    });
+    
     const navigate = useNavigate();
     const [postData, setPostData] = useState(INITIAL_STATE);
-    const [test, setTest] = useState('')
     //Next, on user input, update any state variable (this likely wont work for files, i will have to find that out later)
     const handleChange = (event) =>{
         console.log(event.target.name);
         setPostData({ ...postData, [event.target.name] : event.target.value });
-        setTest(event.target.value);
+      
         console.log(postData)
     };
     // Next, on user submit, we will post to the database
@@ -114,7 +117,6 @@ function NewForm ({ data, path }){
     });
 
     return(
-
         <Form data-bs-theme="dark" onSubmit={handleSubmit}>
             {formInputs}
             <Button variant="primary" type="submit">

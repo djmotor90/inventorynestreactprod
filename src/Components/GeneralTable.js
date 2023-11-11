@@ -28,12 +28,17 @@ function GeneralTable ({ data }){
     const tableIndRow = (row) => {
         //delete the primary id 
         delete row[id];
+        //below 
         return(
             Object.keys(row).map(key => {
-                    return(
-                        <td> 
-                            {row[key]} 
-                        </td>
+                    return(  
+                            <td className= "hoverableTableRow"> 
+                                <Link to= {`/${linkPath}/${id}`}>
+                                    {row[key]} 
+                                </Link>
+                            </td>
+                        
+
                     )
             })
         );
