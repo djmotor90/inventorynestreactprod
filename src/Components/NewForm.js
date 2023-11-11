@@ -65,7 +65,7 @@ function NewForm ({ data, path }){
 
         <Form data-bs-theme="dark">
             {formInputs}
-            <Button variant="primary" type="submit" onClick={}>
+            <Button variant="primary" type="submit" onClick={''}>
                 Create a New Entry
             </Button>
         </Form>
