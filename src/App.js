@@ -20,6 +20,7 @@ import NewCustomer        from './Components/Routes/NewCustomer';
 import Purchase           from './Components/Routes/Purchase';
 import Reporting          from './Components/Routes/Reporting';
 import Transfer           from './Components/Routes/Transfer';
+//import InventoryAdd       from './Components/Routes/InventoryAdd'
 
 
 

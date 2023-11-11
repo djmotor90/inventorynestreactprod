@@ -12,6 +12,7 @@
     "d3-scale": "^4.0.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
+    "react-bootstrap-icons": "^1.10.3",
     "react-bootstrap-sidebar-menu": "^2.0.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
