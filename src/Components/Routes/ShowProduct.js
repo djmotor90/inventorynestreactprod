@@ -7,9 +7,11 @@ import Row       from 'react-bootstrap/Row';
 import Col       from 'react-bootstrap/Col';
 import Button    from 'react-bootstrap/Button';
 import Card      from 'react-bootstrap/Card';
+import Accordion from 'react-bootstrap/Accordion';
 //Import in homemade Components
 import ShowCard     from '../ShowOneEntry/ShowCard';
 import GeneralTable from "../GeneralTable";
+import PurchaseForm from "../ShowOneEntry/PurchaseForm";
 
 
 function ShowProduct (){
@@ -19,17 +21,25 @@ function ShowProduct (){
     const [showTableData, setShowTableData] = useState(null);
     const [name, setName] = useState(null);
     const [tableLength, setTableLength] = useState(0);
+    const [ownerMoney, setOwnerMoney] = useState(0);
+    const [purchaseFormData, setPurchaseFormData] = useState(null);
     const makeAPICall = async () => {
         try {
           const response = await fetch(`http://localhost:3001/products/${id}`, {mode:'cors'});
           const data = await response.json();
           //lets add to each one the name of the route
           data.showFormInfo.path = 'products';
-          console.log(data.associateTable)
           setShowFormData(data.showFormInfo);
           setShowTableData(data.associateTable);
           setName(data.showFormInfo.name);
-          setTableLength(data.associateTable.length)
+          setTableLength(data.associateTable.length);
+          setPurchaseFormData({
+            data       : data.purchaseForm.allWarehouses,
+            ownerMoney : data.purchaseForm.ownerMoney,
+            productCost: data.showFormInfo.list.product_provider_price,
+            productId  : data.showFormInfo.id
+         });
+         setOwnerMoney(data.purchaseForm.ownerMoney)
         }
         catch (e) {
           //eventually will have to do something
@@ -41,15 +51,16 @@ function ShowProduct (){
       }, []);
       //wait until data loads to populate your components
       const displayCard = showFormData && <ShowCard data={showFormData}/>;
-      const performanceCard = showFormData && <ShowCard data={showFormData}/>;
+      const displayperformanceCard = showFormData && <ShowCard data={showFormData}/>;
       const displayTable = showTableData && <GeneralTable data={[showTableData, 'warehouse_id', 'warehouses']}/>;
+      const displayPurchaseForm = purchaseFormData && <PurchaseForm purchaseFormData={ purchaseFormData }/>;
     return(
         <Container fluid>
             <Row>
                 <Col className = 'd-flex justify-content-center'>{displayCard}</Col>
-                <Col className = 'd-flex justify-content-center'> {performanceCard}</Col>
+                <Col className = 'd-flex justify-content-center'> {displayperformanceCard}</Col>
              </Row>
-            <Row>  
+            <Row style={{padding:'40px'}}>  
             <Card data-bs-theme="dark">
                 <Card.Header as="h5">{name} Is Present In {tableLength} Warehouses </Card.Header>
                 <Card.Body>
@@ -57,7 +68,21 @@ function ShowProduct (){
                       Click any entry below to view the warehouse information
                     </Card.Text>
                     <Col> {displayTable} </Col>
-                    <Button variant="primary"> Transfer Product between Warehouses</Button>
+                    <Accordion defaultActiveKey="1">
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header>Transfer {name} Between Warehouses</Accordion.Header>
+                            <Accordion.Body>
+
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="1">
+                            <Accordion.Header>Purchase More {name}</Accordion.Header>
+                            <Accordion.Body>
+                                <h5 style={{textAlign:'right', color:'green'}}> You currently have ${ownerMoney} dollars to spend </h5>
+                                {displayPurchaseForm}
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
                 </Card.Body>
                 </Card>
             </Row>
