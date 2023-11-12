@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 //Import  in all components
 import Form   from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Col    from 'react-bootstrap/Col';
+import Row    from 'react-bootstrap/Row';
 
 function NewForm ({ data, path, values }){
     //make an initial state for every key in your data object and set them to empty
@@ -24,14 +26,12 @@ function NewForm ({ data, path, values }){
         }
         
     });
-    
     const navigate = useNavigate();
     const [postData, setPostData] = useState(INITIAL_STATE);
     //Next, on user input, update any state variable (this likely wont work for files, i will have to find that out later)
     const handleChange = (event) =>{
         console.log(event.target.name);
         setPostData({ ...postData, [event.target.name] : event.target.value });
-      
         console.log(postData)
     };
     // Next, on user submit, we will post to the database
@@ -77,41 +77,51 @@ function NewForm ({ data, path, values }){
                     )
                 });
                 return(
-                    <Form.Group key={key} className="mb-3">
-                    <Form.Label> {key}: </Form.Label>
+                    <Form.Group key={key} as={Row} className="mb-3">
+                    <Form.Label > {key}: </Form.Label>
+                    <Col sm="10">
                         <Form.Select name={key} required={required} onChange={handleChange} value={postData[key]}>
                             {options}
                         </Form.Select>
+                    </Col>
                     </Form.Group>
                 );
             case 'file':
                 //rn only ever accept pics
                 return(
-                    <Form.Group key={key} controlId="formFile" className="mb-3">
-                    <Form.Label> Upload a Picture for {key}: </Form.Label>
-                         <Form.Control name={key} value={postData[key]} type="file" required={required} onChange={handleChange} />
+                    <Form.Group key={key} as={Row} controlId="formFile" className="mb-3">
+                        <Form.Label> Upload a Picture for {key}: </Form.Label>
+                        <Col sm="10">
+                            <Form.Control name={key} value={postData[key]} type="file" required={required} onChange={handleChange} placeholder="filename" />
+                        </Col>
                     </Form.Group>
                 );
             case 'text':
                 return(
-                    <Form.Group key={key} className="mb-3">
-                    <Form.Label>{key}: </Form.Label>
-                         <Form.Control name={key} value={postData[key]} type="text" required={required} onChange={handleChange} />
-                    </Form.Group>  
+                    <Form.Group key={key} as={Row} className="mb-3">
+                    <Form.Label> {key}: </Form.Label>
+                    <Col sm="10">
+                        <Form.Control name={key} value={postData[key]} type="text" required={required} onChange={handleChange} placeholder="value"/>
+                    </Col>
+                    </Form.Group>
                 );
             case 'number':
                 return(
-                    <Form.Group key={key} className="mb-3">
-                    <Form.Label>{key}: </Form.Label>
-                         <Form.Control name={key} value={postData[key]} type="number" required={required} onChange={handleChange} />
-                    </Form.Group>  
+                    <Form.Group key={key} as={Row}  className="mb-3">
+                    <Form.Label> {key}: </Form.Label>
+                    <Col sm="10">
+                        <Form.Control name={key} value={postData[key]} type="number" required={required} onChange={handleChange} placeholder="number" />
+                    </Col>
+                    </Form.Group>
                 );
             case 'date':
                 return(
-                    <Form.Group key={key} className="mb-3">
-                    <Form.Label>{key}: </Form.Label>
-                         <Form.Control name={key} value={postData[key]} type="date" required={required} onChange={handleChange} />
-                    </Form.Group>  
+                    <Form.Group key={key} as={Row} className="mb-3">
+                    <Form.Label> {key}: </Form.Label>
+                    <Col sm="10">
+                        <Form.Control name={key} value={postData[key]} type="date" required={required} onChange={handleChange} placeholder="date" />
+                    </Col>
+                    </Form.Group>
                 );
         };
     });
@@ -119,9 +129,11 @@ function NewForm ({ data, path, values }){
     return(
         <Form data-bs-theme="dark" onSubmit={handleSubmit}>
             {formInputs}
-            <Button variant="primary" type="submit">
-                Create a New Entry
-            </Button>
+            <Form.Group as={Row} className="mb-3">
+                <Col sm={{ span: 10, offset: 0 }}>
+                <Button type="submit"> Add a New Value</Button>
+                </Col>
+            </Form.Group>
         </Form>
     );
 }

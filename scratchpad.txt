@@ -1,8 +1,1 @@
 data-bs-theme="dark"
-
-
-
-                    <Link  to={`${linkPath}/${row.id}`}>
-                        <td> one </td>
-                        <td> two</td>
-                    </Link>

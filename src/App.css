@@ -1,8 +1,7 @@
-.App {
-  text-align: center;
-  background-color: rgba(40, 44, 52, 0.756);
-  color: white;
 
+.App {
+  background-color: rgba(40, 44, 52, 0.756);
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -37,15 +36,31 @@
   -webkit-filter: invert(100%); /* Safari/Chrome */
   filter: invert(100%);
 }
-
 .navbarDropDownDescription
 {
    padding: 3px 20px 1px 20px;
    color:#61dafb;
 
 }
-
 .hoverAbleTableRow:hover
 {
     background-color: 'green';
 }
+
+/*New Form Styling */
+.newFormHolder
+{
+   width: 70%;
+   margin-left: 3%;
+}
+.newFormHolder h2
+{
+  background-color:#ccd0d5;
+}
+
+/*New table Styling */
+.hoverAbleTableRow:hover
+{
+  cursor: pointer;
+}
+

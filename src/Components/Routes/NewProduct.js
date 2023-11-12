@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 //Import  in all components
 import NewForm    from "../NewForm";
+//import in all bootstrap components
+import Card from 'react-bootstrap/Card';
 
 function NewProduct (){
     const [formInputData, setFormInputData] = useState(null);
@@ -20,14 +22,16 @@ function NewProduct (){
         makeAPICall();
       }, []);
       //once the data is loaded in display the information
+      //in addition to the current form add in if you want to buy new products
       const displayForm = formInputData  && <NewForm data = {formInputData} path= 'products'/>;
     return(
-      <div>
-          <div>
-              <h2> Create a New Product </h2>
+      <div className="newFormHolder">
+          <Card border="info" data-bs-theme="dark" class="newFormHolder">
+            <Card.Header><Card.Title style= {{color: '#61dafb'}}>Create a New Product</Card.Title></Card.Header>
+            <Card.Body>
                 {displayForm}
-          </div>
-
+            </Card.Body>
+          </Card>
       </div>
 
 
