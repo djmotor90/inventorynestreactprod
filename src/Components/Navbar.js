@@ -26,7 +26,7 @@ function OffcanvasExample( { ownerName }) {
                   <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-fluid`}/>
                 </div>
                 
-                <Link to='/' title="return Home" relative="path"  style={{ textDecoration: 'none'}}>
+                <Link to='/' title="return Home" relative="path"  style={{ textDecoration: 'none'}} className="justify-content-between">
                         <Navbar.Brand className = 'd-flex justify-content-center' >
                                 <img
                                 alt="inventory nest logo"
@@ -35,7 +35,7 @@ function OffcanvasExample( { ownerName }) {
                                 height="30"
                                 className="d-inline-block align-top"
                                 />{' '}
-                                <span style={{margin:"0px 20px"}}>Inventory Nest </span>
+                                <span style={{padding:"0px 20px"}}>Inventory Nest </span>
                                 <img
                                 alt="inventory nest logo"
                                 src= {logo}

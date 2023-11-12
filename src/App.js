@@ -47,21 +47,23 @@ function App() {
     <div className="App">
       <Router>
         <Navbar ownerName={ownerName}/>
-        <Routes>
-          <Route exact path='/' element={<Home ownerName={ownerName} />}/>
-          <Route path='/products' element={<ShowProducts/>}/>
-          <Route path='/products/new' element={<NewProduct/>}/>
-          <Route path='/products/:id' element={<ShowProduct/>}/>
-          <Route path='/warehouses' element = {<ShowWarehouses/>}/>
-          <Route path='/warehouses/new' element = {<NewWarehouse/>}/>
-          <Route path='/warehouses/:id' element = {<ShowWarehouse/>}/>
-          <Route path='/warehouses/:id/transfer' element = {<Transfer/>}/>
-          <Route path='/customers' element={<ShowCustomers/>}/>
-          <Route path='/customers/new' element={<NewCustomer/>}/>
-          <Route path='/customers/:id' element={<ShowCustomer/>}/>
-          <Route path='/customers/:id/buy' element={<Purchase/>}/>
-          <Route path='/reporting' element={<Reporting/>}/>
-        </Routes>
+        <div style={{marginTop:'40px'}}>
+          <Routes>
+            <Route exact path='/' element={<Home ownerName={ownerName} />}/>
+            <Route path='/products' element={<ShowProducts/>}/>
+            <Route path='/products/new' element={<NewProduct/>}/>
+            <Route path='/products/:id' element={<ShowProduct/>}/>
+            <Route path='/warehouses' element = {<ShowWarehouses/>}/>
+            <Route path='/warehouses/new' element = {<NewWarehouse/>}/>
+            <Route path='/warehouses/:id' element = {<ShowWarehouse/>}/>
+            <Route path='/warehouses/:id/transfer' element = {<Transfer/>}/>
+            <Route path='/customers' element={<ShowCustomers/>}/>
+            <Route path='/customers/new' element={<NewCustomer/>}/>
+            <Route path='/customers/:id' element={<ShowCustomer/>}/>
+            <Route path='/customers/:id/buy' element={<Purchase/>}/>
+            <Route path='/reporting' element={<Reporting/>}/>
+          </Routes>
+        </div>
       </Router>
     </div>
   );

@@ -45,9 +45,9 @@ function ShowProduct (){
       const displayTable = showTableData && <GeneralTable data={[showTableData, 'warehouse_id', 'warehouses']}/>;
     return(
         <Container fluid>
-            <Row >
+            <Row>
                 <Col className = 'd-flex justify-content-center'>{displayCard}</Col>
-                <Col> {performanceCard}</Col>
+                <Col className = 'd-flex justify-content-center'> {performanceCard}</Col>
              </Row>
             <Row>  
             <Card data-bs-theme="dark">
