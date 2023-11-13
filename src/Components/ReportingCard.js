@@ -22,9 +22,13 @@ function ReportingCard({ data }) {
                             To: {data[i].warehouse_to.warehouse_name}
                             <br/>
                             From:{data[i].warehouse_from.warehouse_name}
+                            <br/>
+                            Product: {data[i].product.product_name}
                         </Card.Text>
                         <Card.Link> <Link to={`/warehouses/${data[i].warehouse_from.warehouse_id}`} relative="path" > View From </Link></Card.Link>
                         <Card.Link>  <Link to={`/warehouses/${data[i].warehouse_to.warehouse_id}`} relative="path" > View To </Link> </Card.Link>
+                        <Card.Link>  <Link to={`/products/${data[i].product.product_id}`} relative="path" > View Product </Link> </Card.Link>
+
                     </Card.Body>
                 </Card>
             </div>

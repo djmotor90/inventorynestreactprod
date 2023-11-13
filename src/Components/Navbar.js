@@ -5,8 +5,6 @@ import { Link }                from "react-router-dom";
 import Navbar         from 'react-bootstrap/Navbar';
 import Container      from 'react-bootstrap/Container';
 import Nav            from 'react-bootstrap/Nav';
-import Row            from 'react-bootstrap/Row';
-import Col            from 'react-bootstrap/Offcanvas';
 import NavDropdown    from 'react-bootstrap/NavDropdown';
 import Offcanvas      from 'react-bootstrap/Offcanvas';
 //Import all assets
@@ -117,7 +115,7 @@ function OffcanvasExample( { ownerName }) {
                           </Link></Nav.Link> 
                         </NavDropdown.Item>
                         <NavDropdown.Divider />
-                          <p className="navbarDropDownDescription"> Products is where you can browse all products offered across all warehouses, see their performances, see where individual products are located, add new products to your system, and delete products (will also delete them from all your inventories). </p>
+                          <p className="navbarDropDownDescription"> Products is where you can browse all products offered across all warehouses, see their performances, see where individual products are located and move them, add new products to your system, buy more product, and delete products (will also delete them from all your inventories). </p>
                     </NavDropdown>
                     <NavDropdown
                         title="Warehouses"
