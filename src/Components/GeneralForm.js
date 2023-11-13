@@ -10,7 +10,7 @@ import Col    from 'react-bootstrap/Col';
 import Row    from 'react-bootstrap/Row';
 
 function NewForm ({ data, path, type }){
-    console.log(data);
+    const { id } = useParams();
     //make an initial state for every key in your data object 
     const INITIAL_STATE = {};
     //If its supposed to be an edit form, you also want to populate the current value
@@ -33,7 +33,6 @@ function NewForm ({ data, path, type }){
     const handleChange = (event) =>{
         console.log(event.target.name);
         setPostData({ ...postData, [event.target.name] : event.target.value });
-        console.log(postData)
     };
     // Next, on user submit, we will post to the database
     const handleSubmit = async (event) => {
@@ -47,34 +46,40 @@ function NewForm ({ data, path, type }){
         }
         else{
             setValidated(true);
-            const url =''
+            let url =``;
+            let method=``;
             if (type === 'new'){
                 url = (`http://localhost:3001/${path}`);
+                method ="POST"
             }else{
-                const { id } = useParams();
-                url = (`http://localhost:3001/${path}/${id}/edit`);
+                console.log(id);
+                url = (`http://localhost:3001/${path}/${id}`);
+                method="PUT"
             };
-            console.log(url)
             const response = await fetch(url, {
-                method : 'POST',
+                method : method,
                 headers: {
                     'accept'       : 'application/json',
                     'content-type' : 'application/json'
                 },
                 body   : JSON.stringify(postData)
             },{mode:'cors'});
+
             if(response.status !== 201){
                 //handle error here
                 console.log('error')
                 const message = await response.json();
             }
             else{
-                console.log(response);
                 //TODO this will have to send over the id
                 const message = await response.json();
                 console.log(message)
                 const id = message.id;
-                navigate(`/${path}/${id}?addSuccess=true`);
+                if (type === 'new'){
+                    navigate(`/${path}/${id}?addSuccess=true`);
+                }else{
+                    navigate(`/${path}/${id}?editSuccess=true`);
+                }
             }
         }
     }
