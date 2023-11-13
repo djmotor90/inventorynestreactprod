@@ -1,18 +1,19 @@
 //import all dependencies and Hooks
-import { tab } from "@testing-library/user-event/dist/tab";
-import { useEffect, useState } from "react";
+import { useNavigate, Link }  from "react-router-dom";
 //import in all bootstrap components
-import Table from 'react-bootstrap/Table';
-import { Link }                from "react-router-dom";
-
+import Table         from 'react-bootstrap/Table';
 
 
 function GeneralTable ({ data }){
     //seperate out your params
     const [ foundPlaces, id, linkPath ] = data;
+    //State variables and handlers
+    //handle row click 
+    const navigate = useNavigate();
+    const handleRowClick = (id) => {
+        navigate(`/${linkPath}/${id}`);   
+    };
     //first make the header
-    //note: figure out sorting, right now it only does ascending descending
-    let tableHeadStates = {};
     //note: will have to add in arrows
     // assuming there is at least one entry this will work, should write something that will replace it with a placeholder if not
     const tableHeader = Object.keys(foundPlaces[0]).map(key => {
@@ -26,27 +27,16 @@ function GeneralTable ({ data }){
         }
     });
     const tableIndRow = (row) => {
-        //delete the primary id 
-        delete row[id];
-        //below 
+        //loop through the row object and remove every primaryID key
         return(
             Object.keys(row).map(key => {
-                    return(  
-                            <td className= "hoverableTableRow"> 
-                                <Link to= {`/${linkPath}/${id}`}>
-                                    {row[key]} 
-                                </Link>
-                            </td>
-                        
-
-                    )
+                    if (key !== id){return(<td key={key}> {row[key]} </td>)}
             })
         );
     };
-    console.log(foundPlaces)
     const tableData = foundPlaces.map(row => {
         return(
-            <tr key={row[id]} onClick={''}>
+            <tr key={row[id]} id={row[id]} onClick={() => handleRowClick(row[id])}>
                 {tableIndRow(row)}
             </tr>
         )
@@ -56,7 +46,7 @@ function GeneralTable ({ data }){
     //TODO: add searching functionality via a form
     //TODO: add 
     return(
-            <Table responsive striped="columns" data-bs-theme="dark">
+            <Table responsive striped bordered hover data-bs-theme="dark">
                 <thead>
                     <tr>
                         {tableHeader}

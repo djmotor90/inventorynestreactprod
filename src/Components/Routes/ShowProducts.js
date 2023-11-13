@@ -17,14 +17,13 @@ function ShowProducts (){
           setShow(true);
        }
     };
-
     const [productData, setProductData] = useState(null);
     const makeAPICall = async () => {
         try {
           const response = await fetch('http://localhost:3001/products', {mode:'cors'});
           const data = await response.json();
           setProductData(data);
-
+          console.log(data)
         }
         catch (e) {
           console.log(e, 'error')
@@ -51,10 +50,6 @@ function ShowProducts (){
               </Toast.Header>
               <Toast.Body> You have successfully added a new Product to the Database.</Toast.Body>
             </Toast>
-              
-              <Container>
-
-              </Container>
             {displayTable}
         </div>
     );

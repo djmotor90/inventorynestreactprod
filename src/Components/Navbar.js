@@ -5,6 +5,8 @@ import { Link }                from "react-router-dom";
 import Navbar         from 'react-bootstrap/Navbar';
 import Container      from 'react-bootstrap/Container';
 import Nav            from 'react-bootstrap/Nav';
+import Row            from 'react-bootstrap/Row';
+import Col            from 'react-bootstrap/Offcanvas';
 import NavDropdown    from 'react-bootstrap/NavDropdown';
 import Offcanvas      from 'react-bootstrap/Offcanvas';
 //Import all assets
@@ -13,34 +15,36 @@ import userAvatar from '../assets/userAvatar.png';
 import { HouseFill, BookFill, Table, Pen, Search, Fire, CurrencyDollar, PersonCircle } from 'react-bootstrap-icons';
 
 
-
-
 function OffcanvasExample( { ownerName }) {
+  //TODO remove the extraneous mapping from the example
   return (
     <>
       {[false].map((expand) => (
-        <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3" data-bs-theme="dark">
+        <Navbar key={expand} expand='false' className="bg-body-tertiary mb-3 justify-content-between" data-bs-theme="dark">
           <Container fluid>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Link to='/' title="return Home" relative="path"  style={{ textDecoration: 'none' }}>
-                    <Navbar.Brand>
-                            <img
-                            alt="inventory nest logo"
-                            src= {logo}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            />{' '}
-                            <span style={{margin:"0px 20px"}}>Inventory Nest </span>
-                            <img
-                            alt="inventory nest logo"
-                            src= {logo}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                            />{' '}
-                        </Navbar.Brand>
-            </Link>
+                <div style={{width:'235px'}}>
+                  <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-fluid`}/>
+                </div>
+                
+                <Link to='/' title="return Home" relative="path"  style={{ textDecoration: 'none'}} className="justify-content-between">
+                        <Navbar.Brand className = 'd-flex justify-content-center' >
+                                <img
+                                alt="inventory nest logo"
+                                src= {logo}
+                                width="30"
+                                height="30"
+                                className="d-inline-block align-top"
+                                />{' '}
+                                <span style={{padding:"0px 20px"}}>Inventory Nest </span>
+                                <img
+                                alt="inventory nest logo"
+                                src= {logo}
+                                width="30"
+                                height="30"
+                                className="d-inline-block align-top"
+                                />{' '}
+                            </Navbar.Brand>
+                </Link>
             <Link to='/reporting' title="return Home" relative="path"  style={{ textDecoration: 'none' }}>
                     <Navbar.Text>
                     <span style={{margin:"0px 20px", marginTop:"40px"}}>  Signed in as: {ownerName} </span>
