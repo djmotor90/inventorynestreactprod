@@ -37,6 +37,10 @@ function ShowProduct (){
             setToastMessage('You have successfully added a new product!')
             setToastShow(true);
         }
+        else if (searchParams.get('editSuccess')){
+            setToastMessage('You have successfully edited your product!')
+            setToastShow(true);
+        }
     };
     //populating all needed data
     const [showFormData, setShowFormData] = useState(null);

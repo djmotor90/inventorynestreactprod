@@ -10,7 +10,7 @@ import Col    from 'react-bootstrap/Col';
 import Row    from 'react-bootstrap/Row';
 
 function NewForm ({ data, path, type }){
-    const { id } = useParams();
+    const { id } = useParams();//this is only actually present for editing
     //make an initial state for every key in your data object 
     const INITIAL_STATE = {};
     //If its supposed to be an edit form, you also want to populate the current value
@@ -74,11 +74,11 @@ function NewForm ({ data, path, type }){
                 //TODO this will have to send over the id
                 const message = await response.json();
                 console.log(message)
-                const id = message.id;
+                const idRoute = message.id;
                 if (type === 'new'){
-                    navigate(`/${path}/${id}?addSuccess=true`);
+                    navigate(`/${path}/${idRoute}?addSuccess=true`);
                 }else{
-                    navigate(`/${path}/${id}?editSuccess=true`);
+                    navigate(`/${path}/${idRoute}?editSuccess=true`);
                 }
             }
         }
