@@ -10,10 +10,12 @@ import Button    from 'react-bootstrap/Button';
 import Card      from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Toast     from 'react-bootstrap/Toast';
+import logo      from '../../assets/inventoryNestLogo.png';
 //Import in homemade Components
 import ShowCard     from '../ShowOneEntry/ShowCard';
 import GeneralTable from "../GeneralTable";
 import PurchaseForm from "../ShowOneEntry/PurchaseForm";
+import TransferForm from "../ShowOneEntry/TransferForm";
 
 
 function ShowProduct (){
@@ -23,18 +25,25 @@ function ShowProduct (){
     const [searchParams, setSearchParams] = useSearchParams();
     const [toastShow, setToastShow] = useState(false);
     const [toastMessage,setToastMessage] = useState('');
-    /*const checkForToast = () => {
-        if (searchParams.get('purchase')){
-            //check if it was a success or error
-            console.log(searchParams.get('purchase'));
+    const checkForToast = () => {
+        if (searchParams.get('purchaseSuccess')){
+            setToastMessage('You have successfully purchased new inventory!')
             setToastShow(true);
         }
-    };*/
+        else if (searchParams.get('transferSuccess')){
+            setToastMessage('You have successfully transferred inventory!')
+            setToastShow(true);
+        }
+        else if (searchParams.get('addSuccess')){
+            setToastMessage('You have successfully added a new product!')
+            setToastShow(true);
+        }
+    };
+    //populating all needed data
     const [showFormData, setShowFormData] = useState(null);
     const [showTableData, setShowTableData] = useState(null);
     const [name, setName] = useState(null);
     const [tableLength, setTableLength] = useState(0);
-    const [ownerMoney, setOwnerMoney] = useState(0);
     const [purchaseFormData, setPurchaseFormData] = useState(null);
     const makeAPICall = async () => {
         try {
@@ -43,16 +52,20 @@ function ShowProduct (){
           //lets add to each one the name of the route
           data.showFormInfo.path = 'products';
           setShowFormData(data.showFormInfo);
-          setShowTableData(data.associateTable);
+          //if the product isnt in any warehouses, this will be an empty array
+           if (data.associateTable.length === 0){
+                setTableLength(data.associateTable.length);
+           }else{
+                setShowTableData(data.associateTable);
+                setTableLength(data.associateTable.length);
+           }
           setName(data.showFormInfo.name);
-          setTableLength(data.associateTable.length);
           setPurchaseFormData({
             data       : data.purchaseForm.allWarehouses,
             ownerMoney : data.purchaseForm.ownerMoney,
             productCost: data.showFormInfo.list.product_provider_price,
             productId  : data.showFormInfo.id
          });
-         setOwnerMoney(data.purchaseForm.ownerMoney)
         }
         catch (e) {
           //eventually will have to do something
@@ -60,27 +73,31 @@ function ShowProduct (){
         }
       }
       useEffect(() => {
-        //checkForToast();
+        checkForToast();
         makeAPICall();
       }, []);
       //wait until data loads to populate your components
       const displayCard = showFormData && <ShowCard data={showFormData}/>;
       const displayperformanceCard = showFormData && <ShowCard data={showFormData}/>;
-      const displayTable = showTableData && <GeneralTable data={[showTableData, 'warehouse_id', 'warehouses']}/>;
+      const displayTable = showTableData ? <GeneralTable data={[showTableData, 'warehouse_id', 'warehouses']}/> : <h5> There are no warehouses currently storing this object. </h5>;
       const displayPurchaseForm = purchaseFormData && <PurchaseForm purchaseFormData={ purchaseFormData }/>;
+      //the data above actually works for both, could rename to make it more clear
+      const displayTransferForm = purchaseFormData && <TransferForm TransferFormData={ purchaseFormData }/>;
     return(
     <div>
-        <Toast onClose={() => setToastShow(false)} data-bs-theme="dark" show={toastShow} delay={3000} autohide style = {{position:'absolute', right: '0'}}>
+        <Toast onClose={() => setToastShow(false)} data-bs-theme="dark" show={toastShow} delay={6000} autohide style = {{position:'fixed', right: '0', top: '10', width:'600px', height:'200px', zIndex:'10'}} bg='success'>
             <Toast.Header>
             <img
-                src="holder.js/20x20?text=%20"
+                src={logo}
                 className="rounded me-2"
                 alt=""
+                width='40px'
+                height='40px'
             />
             <strong className="me-auto">Inventory Nest</strong>
             <small>Just Now</small>
             </Toast.Header>
-            <Toast.Body> {toastMessage} </Toast.Body>
+            <Toast.Body style={{color:'white'}}> {toastMessage} </Toast.Body>
         </Toast>
         <Container fluid>
             <Row>
@@ -99,11 +116,11 @@ function ShowProduct (){
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>Transfer {name} Between Warehouses</Accordion.Header>
                             <Accordion.Body>
-
+                                {displayTransferForm}
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="1">
-                            <Accordion.Header>Purchase More {name}</Accordion.Header>
+                            <Accordion.Header>Purchase More of {name}</Accordion.Header>
                             <Accordion.Body>
                                 {displayPurchaseForm}
                             </Accordion.Body>

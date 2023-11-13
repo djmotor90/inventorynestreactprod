@@ -1,34 +1,35 @@
 //Note: this could probably just be generalized out to form eventually, but fr now this will generate just blank forms
 //Import in all required hooks and dependencies
 import { useEffect, useState }    from "react";
+import { useNavigate}             from "react-router";
 //Import  in all components
 import Form   from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col    from 'react-bootstrap/Col';
 import Row    from 'react-bootstrap/Row';
 
-function TransferForm ({ purchaseFormData }){
-    let { data, ownerMoney, productCost, productId } = purchaseFormData;
+function TransferForm ({ TransferFormData }){
+    let data = TransferFormData.data;
+    let productId = TransferFormData.productId
+    const navigate = useNavigate();
     //the only three things the backend needs for this
     const INITIAL_STATE = {
-        warehouse_id : 0,
-        product_id  : productId,
-        amount      : 0,
-        typeof      : 'purchase'
+        warehouseTo    : '',
+        warehouseFrom  : '',
+        amount         : 0,
+        productId      : productId,
+        typeof         : 'transfer'
     };
     //the data for sending to the server
-    const [purchaseData, setPurchaseData] = useState(INITIAL_STATE);
+    const [transferData, setTransferData] = useState(INITIAL_STATE);
     //the stock that will be displayed on warehouse change
-    const [currentStock, setcurrentStock] = useState(0);
-    //the price that will display on amount change
-    const [price, setPrice] = useState(0);
-    //this will show leftover money
-    const [ownerMoneyLeft, setOwnerMoneyLeft] = useState(parseFloat(ownerMoney));
+    const [toCurrentStock, setToCurrentStock] = useState(0);
+    const [fromCurrentStock, setFromCurrentStock] = useState(0);
+    const [maxValue,setMaxValue] = useState(0);
     //using some inbuilt bootstrap validation
     const [validated, setValidated] = useState(false);
     //bootstrap has some weird things on the validation and you cant really use custom validations. Since the prod price never changes
     //im just gonna find the max number that doesnt put ownermoney in the negatives
-    const maxValue = Math.floor(ownerMoney/productCost);
     //form parts
     const displayWarehouseSelect = data.map(warehouse => {
         let selectName = `${warehouse.warehouse_name} (${warehouse.warehouse_state})`;
@@ -38,67 +39,110 @@ function TransferForm ({ purchaseFormData }){
     });
     //Next, on user input, update any state variable (this likely wont work for files, i will have to find that out later)
     const handleChange =  (event) =>{
-        setPurchaseData({ ...purchaseData, [event.target.name] : event.target.value });
+
+        setTransferData({ ...transferData, [event.target.name] : event.target.value });
     };
     useEffect(() => {
-        if (purchaseData !== INITIAL_STATE)
+        if (transferData !== INITIAL_STATE)
         {
-            if (purchaseData.warehouse_id !== ""){
-                let currentWarehouse = data.find(warehouse => warehouse.warehouse_id == purchaseData.warehouse_id);
-                setcurrentStock(currentWarehouse.current_stock_level);
-                console.log(productCost)
+            //if your to and from are empty
+            if (transferData.warehouseTo == "" && transferData.warehouseFrom == "" ){
+                setToCurrentStock(0);
+                setFromCurrentStock(0);
+                setMaxValue(0);
+            }
+            else if (transferData.warehouseTo == "")
+            {
+                setToCurrentStock(0);
+                //find the from warehouses current stock
+                const fromWarehouse = data.find(warehouse => warehouse.warehouse_id == transferData.warehouseFrom);
+                setFromCurrentStock(fromWarehouse.current_stock_level);
+                setMaxValue(fromWarehouse.current_stock_level);
+            }
+            else if (transferData.warehouseFrom == "")
+            {
+                setFromCurrentStock(0);
+                //find the from warehouses current stock
+                const toWarehouse = data.find(warehouse => warehouse.warehouse_id == transferData.warehouseTo);
+                setToCurrentStock(toWarehouse.current_stock_level);
+                setMaxValue(0);
             }
             else
             {
-                setcurrentStock(0);
+                const toWarehouse = data.find(warehouse => warehouse.warehouse_id == transferData.warehouseTo);
+                const fromWarehouse = data.find(warehouse => warehouse.warehouse_id == transferData.warehouseFrom);
+                setFromCurrentStock(parseInt(fromWarehouse.current_stock_level) - parseInt(transferData.amount));
+                setToCurrentStock(parseInt(toWarehouse.current_stock_level) + parseInt(transferData.amount));
             }
-            setPrice(parseFloat(purchaseData.amount) * parseFloat(productCost));
-            //for some reason doesnt like when you put this directly in the setstate
-            let remaining = parseFloat(ownerMoney) - (parseFloat(purchaseData.amount) * parseFloat(productCost))
-            setOwnerMoneyLeft(remaining);
         }
-
-    }, [purchaseData])
+    }, [transferData])
     // Next, on user submit, we will post to the database
     const handleSubmit = async (event) => {
-        event.preventDefault;
+        event.preventDefault();
         //lets do some front end validation
         const form = event.currentTarget;
-        if (form.checkValidity() === false || purchaseData.warehouse_id == 0 || purchaseData.amount == 0 ) {
+        if (form.checkValidity() === false && warehouseFrom == warehouseTo) {
           event.preventDefault();
           event.stopPropagation();
- 
-        }
-    
-        setValidated(true);
-        
-        //harcoding the localhost URL for now, ideally should be in a .env but cloning from github got confusing for them when it was there
-        const url = (`http://localhost:3001/products/${productId}`)
-        const response = await fetch(url, {
-            method : 'POST',
-            headers: {
-                'accept'       : 'application/json',
-                'content-type' : 'application/json'
-            },
-            body   : JSON.stringify(purchaseData)
-        },{mode:'cors'});
-        if(response.status !== 201)
-        {
-            //handle error here
+          setValidated(true);
         }
         else
         {
-            // a toast message! how fun
-            console.log(response);
-            const message = await response.json();
-            console.log(message)
+            setValidated(true);
+            const url = (`http://localhost:3001/products/${productId}`);
+            const response = await fetch(url, {
+                method : 'POST',
+                headers: {
+                    'accept'       : 'application/json',
+                    'content-type' : 'application/json'
+                },
+                body   : JSON.stringify(transferData)
+            },{mode:'cors'});
+            if(response.status !== 201){
+                //TODO handle this error
+                console.log('error')
+                const message = await response.json();
+            }
+            else{
+                console.log('here');
+                //handle error here
+                const message = await response.json();
+                navigate(`/products/${productId}?transferSuccess=true`);
+                navigate(0);
+            }
         }
+
     }
     return(
         <Form data-bs-theme="dark" onSubmit={handleSubmit}  noValidate validated={validated} >
             <Form.Group className="mb-3">
+            <Form.Label > Select Warehouse to Send From: </Form.Label>
+            <Form.Select aria-label="Default select example" name='warehouseFrom' required onChange={handleChange} value={transferData.warehouseFrom}>
+                <option name='warehouseFrom' value="">Select a Warehouse</option>
+                {displayWarehouseSelect}
+            </Form.Select>
+            <Form.Control.Feedback type="invalid">
+                    Please choose a warehouse
+            </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3">
+                    <Form.Label> This Warehouse currently has this many in stock: </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="number" value={fromCurrentStock} disabled readOnly/>
+                    </Col>
+            </Form.Group>
+            <Form.Group className="mb-3">
+                    <Form.Label> Transfer Amount </Form.Label>
+                    <Col sm="10">
+                        <Form.Control required onChange={handleChange} type="number" name='amount' min="1" max={maxValue} value={transferData.amount}/>
+                    </Col>
+                    <Form.Control.Feedback type="invalid">
+                        Please choose an amount that does not exceed the amount available
+                    </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="mb-3">
             <Form.Label > Select Warehouse to Send To: </Form.Label>
-            <Form.Select aria-label="Default select example" name='warehouse_id' required onChange={handleChange} value={purchaseData.warehouse_id}>
+            <Form.Select aria-label="Default select example" name='warehouseTo' required onChange={handleChange} value={transferData.warehouseTo}>
                 <option name='warehouse_id' value="">Select a Warehouse</option>
                 {displayWarehouseSelect}
             </Form.Select>
@@ -109,36 +153,12 @@ function TransferForm ({ purchaseFormData }){
             <Form.Group className="mb-3">
                     <Form.Label> This Warehouse currently has this many in stock: </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="number" value={currentStock} disabled readOnly/>
+                        <Form.Control type="number" value={toCurrentStock} disabled readOnly/>
                     </Col>
             </Form.Group>
-            <Form.Group className="mb-3">
-                    <Form.Label> How many do you wish to purchase: </Form.Label>
-                    <Col sm="10">
-                        <Form.Control required onChange={handleChange} type="number" name='amount' min="1" max={maxValue} value={purchaseData.amount}/>
-                    </Col>
-                    <Form.Control.Feedback type="invalid">
-                        Please choose an amount that does not put you in the negatives.
-                    </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-3">
-                    <Form.Label> Total Cost for all these products: </Form.Label>
-                    <Col sm="10">
-                        <Form.Control  value={price}  disabled readOnly/>
-                    </Col>
-            </Form.Group>
-            <Form.Group className="mb-3">
-                    <Form.Label> Total Money Leftover: </Form.Label>
-                    <Col sm="10">
-                        <Form.Control  value={ownerMoneyLeft} disabled readOnly/>
-                    </Col>
-            </Form.Group>
-            
-
-            
             <Form.Group as={Row} className="mb-3">
                 <Col sm={{ span: 10, offset: 0 }}>
-                <Button type="submit"> Make a Purchase</Button>
+                <Button type="submit"> Make a Transfer</Button>
                 </Col>
             </Form.Group>
         </Form>

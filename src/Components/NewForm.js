@@ -10,24 +10,16 @@ import Row    from 'react-bootstrap/Row';
 
 function NewForm ({ data, path, values }){
     //make an initial state for every key in your data object and set them to empty
-    //TODO this isnt working as a state variable
-    const INITIAL_STATE = {
-
-    };
+    const INITIAL_STATE = {};
     Object.keys(data).map(key => {
-        if (data[key][0] == 'select')
-        {
-            console.log(data[key][1][0])
-            return INITIAL_STATE[key] = data[key][1][0];
-        }
-        else
-        {
-            return INITIAL_STATE[key] = '';
-        }
-        
+        return INITIAL_STATE[key] = '';
     });
+    //intitialize navigate for redirect
     const navigate = useNavigate();
+    //initialize state varaibles
     const [postData, setPostData] = useState(INITIAL_STATE);
+    //using some inbuilt bootstrap validation
+    const [validated, setValidated] = useState(false);
     //Next, on user input, update any state variable (this likely wont work for files, i will have to find that out later)
     const handleChange = (event) =>{
         console.log(event.target.name);
@@ -37,40 +29,49 @@ function NewForm ({ data, path, values }){
     // Next, on user submit, we will post to the database
     const handleSubmit = async (event) => {
         event.preventDefault();
-        //harcoding the localhost URL for now, ideally should be in a .env but cloning from github got confusing for them when it was there
-        const url = (`http://localhost:3001/${path}`)
-        console.log(url)
-        const response = await fetch(url, {
-            method : 'POST',
-            headers: {
-                'accept'       : 'application/json',
-                'content-type' : 'application/json'
-            },
-            body   : JSON.stringify(postData)
-        },{mode:'cors'});
-        if(response.status !== 201)
-        {
-            //handle error here
+        const form = event.currentTarget;
+        //lets do some front end validation
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            setValidated(true);
         }
-        else
-        {
-            console.log(response);
-            const message = await response.json();
-            console.log(message)
-            navigate(`/${path}/?success=${message.message}`);
+        else{
+            setValidated(true);
+            const url = (`http://localhost:3001/${path}`)
+            console.log(url)
+            const response = await fetch(url, {
+                method : 'POST',
+                headers: {
+                    'accept'       : 'application/json',
+                    'content-type' : 'application/json'
+                },
+                body   : JSON.stringify(postData)
+            },{mode:'cors'});
+            if(response.status !== 201){
+                //handle error here
+                console.log('error')
+                const message = await response.json();
+            }
+            else{
+                console.log(response);
+                //TODO this will have to send over the id
+                const message = await response.json();
+                console.log(message)
+                const id = message.id;
+                navigate(`/${path}/${id}?addSuccess=true`);
+            }
         }
     }
+    //FORM RENDERING 
     //loop through all you cols to get inputs
     const formInputs = Object.keys(data).map(key => {
-        const colName = key;
         const required = !data[key][2] ? 'required' : "";
         //find the form type
         switch (data[key][0])
         {
             case "select":
-                //helper fxn for select
-                //in case they never touch it set the state variable at the very beginning because apparently it wont
-                //INITIAL_STATE[key] = data[key][0];
+                //helper function to loop through all options
                 const options = data[key][1].map((value,i) => {
                     return (
                         <option key={i} value={value} >{value}</option>
@@ -81,6 +82,7 @@ function NewForm ({ data, path, values }){
                     <Form.Label > {key}: </Form.Label>
                     <Col sm="10">
                         <Form.Select name={key} required={required} onChange={handleChange} value={postData[key]}>
+                            <option key='default' value={''} > Select a {key} </option>
                             {options}
                         </Form.Select>
                     </Col>
@@ -102,6 +104,15 @@ function NewForm ({ data, path, values }){
                     <Form.Label> {key}: </Form.Label>
                     <Col sm="10">
                         <Form.Control name={key} value={postData[key]} type="text" required={required} onChange={handleChange} placeholder="value"/>
+                    </Col>
+                    </Form.Group>
+                );
+            case 'textarea':
+                return(
+                    <Form.Group key={key} as={Row} className="mb-3">
+                    <Form.Label> {key}: </Form.Label>
+                    <Col sm="10">
+                        <Form.Control name={key} value={postData[key]} type="textarea" as="textarea" required={required} onChange={handleChange} placeholder="value"/>
                     </Col>
                     </Form.Group>
                 );

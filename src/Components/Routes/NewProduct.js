@@ -33,8 +33,6 @@ function NewProduct (){
             </Card.Body>
           </Card>
       </div>
-
-
     );
 }
 export default NewProduct;

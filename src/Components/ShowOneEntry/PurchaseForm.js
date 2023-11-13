@@ -65,7 +65,7 @@ function PurchaseForm ({ purchaseFormData }){
         event.preventDefault();
         //lets do some front end validation
         const form = event.currentTarget;
-        if (form.checkValidity() === false || purchaseData.warehouse_id == 0 || purchaseData.amount == 0 ) {
+        if (form.checkValidity() === false ) {
           event.preventDefault();
           event.stopPropagation();
           setValidated(true);
