@@ -104,14 +104,11 @@ function TransferForm ({ TransferFormData }){
                 const message = await response.json();
             }
             else{
-                console.log('here');
-                //handle error here
                 const message = await response.json();
                 navigate(`/products/${productId}?transferSuccess=true`);
                 navigate(0);
             }
         }
-
     }
     return(
         <Form data-bs-theme="dark" onSubmit={handleSubmit}  noValidate validated={validated} >

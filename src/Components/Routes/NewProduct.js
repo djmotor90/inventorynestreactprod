@@ -1,7 +1,7 @@
 //Import in all required hooks and dependencies
 import { useEffect, useState } from "react";
 //Import  in all components
-import NewForm    from "../NewForm";
+import GeneralForm    from "../GeneralForm";
 //import in all bootstrap components
 import Card from 'react-bootstrap/Card';
 
@@ -23,10 +23,10 @@ function NewProduct (){
       }, []);
       //once the data is loaded in display the information
       //in addition to the current form add in if you want to buy new products
-      const displayForm = formInputData  && <NewForm data = {formInputData} path= 'products'/>;
+      const displayForm = formInputData  && <GeneralForm data = {formInputData} path= 'products' type='new'/>;
     return(
       <div className="newFormHolder">
-          <Card border="info" data-bs-theme="dark" class="newFormHolder">
+          <Card border="info" data-bs-theme="dark" className="newFormHolder">
             <Card.Header><Card.Title style= {{color: '#61dafb'}}>Create a New Product</Card.Title></Card.Header>
             <Card.Body>
                 {displayForm}

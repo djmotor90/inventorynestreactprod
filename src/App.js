@@ -11,6 +11,7 @@ import Home               from './Components/Routes/Home';
 import ShowProducts       from './Components/Routes/ShowProducts';
 import ShowProduct        from './Components/Routes/ShowProduct';
 import NewProduct         from './Components/Routes/NewProduct';
+import EditProduct         from './Components/Routes/EditProduct';
 import ShowWarehouses     from './Components/Routes/ShowWarehouses';
 import ShowWarehouse      from './Components/Routes/ShowWarehouse';
 import NewWarehouse       from './Components/Routes/NewWarehouse';
@@ -53,6 +54,7 @@ function App() {
             <Route path='/products' element={<ShowProducts/>}/>
             <Route path='/products/new' element={<NewProduct/>}/>
             <Route path='/products/:id' element={<ShowProduct/>}/>
+            <Route path='/products/:id/edit' element={<EditProduct/>}/>
             <Route path='/warehouses' element = {<ShowWarehouses/>}/>
             <Route path='/warehouses/new' element = {<NewWarehouse/>}/>
             <Route path='/warehouses/:id' element = {<ShowWarehouse/>}/>

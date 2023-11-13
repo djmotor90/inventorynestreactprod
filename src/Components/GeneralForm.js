@@ -1,19 +1,28 @@
-//Note: this could probably just be generalized out to form eventually, but fr now this will generate just blank forms
+//THE FUNCTION OF THIS COMPONENT: IT CREATES ANY FORM THAT IS USED TO EDIT OR ADD AN ENTRY FROM ANY TABLE
+
 //Import in all required hooks and dependencies
-import { useState }    from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useState }               from "react";
+import { useNavigate, useParams } from "react-router-dom"; 
 //Import  in all components
 import Form   from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col    from 'react-bootstrap/Col';
 import Row    from 'react-bootstrap/Row';
 
-function NewForm ({ data, path, values }){
-    //make an initial state for every key in your data object and set them to empty
+function NewForm ({ data, path, type }){
+    console.log(data);
+    //make an initial state for every key in your data object 
     const INITIAL_STATE = {};
-    Object.keys(data).map(key => {
-        return INITIAL_STATE[key] = '';
-    });
+    //If its supposed to be an edit form, you also want to populate the current value
+    if (type === 'edit'){
+        Object.keys(data).map(key => {
+            return INITIAL_STATE[key] = data[key][3];
+        });
+    }else{
+        Object.keys(data).map(key => {
+            return INITIAL_STATE[key] = '';
+        });
+    }
     //intitialize navigate for redirect
     const navigate = useNavigate();
     //initialize state varaibles
@@ -38,7 +47,13 @@ function NewForm ({ data, path, values }){
         }
         else{
             setValidated(true);
-            const url = (`http://localhost:3001/${path}`)
+            const url =''
+            if (type === 'new'){
+                url = (`http://localhost:3001/${path}`);
+            }else{
+                const { id } = useParams();
+                url = (`http://localhost:3001/${path}/${id}/edit`);
+            };
             console.log(url)
             const response = await fetch(url, {
                 method : 'POST',
@@ -136,13 +151,14 @@ function NewForm ({ data, path, values }){
                 );
         };
     });
-
+    //Making the button display the relevant cue
+    const displayButton = type=='new' ?  <Button type="submit"> Add a New Entry </Button> : <Button type="submit"> Submit Edited Entry </Button> ;
     return(
         <Form data-bs-theme="dark" onSubmit={handleSubmit}>
             {formInputs}
             <Form.Group as={Row} className="mb-3">
                 <Col sm={{ span: 10, offset: 0 }}>
-                <Button type="submit"> Add a New Value</Button>
+                    {displayButton}
                 </Col>
             </Form.Group>
         </Form>
