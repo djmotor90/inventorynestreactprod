@@ -1,16 +1,14 @@
 //Note: this could probably just be generalized out to form eventually, but fr now this will generate just blank forms
 //Import in all required hooks and dependencies
 import { useEffect, useState }    from "react";
-import { useNavigate}            from "react-router";
 //Import  in all components
 import Form   from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col    from 'react-bootstrap/Col';
 import Row    from 'react-bootstrap/Row';
 
-function PurchaseForm ({ purchaseFormData }){
+function TransferForm ({ purchaseFormData }){
     let { data, ownerMoney, productCost, productId } = purchaseFormData;
-    const navigate = useNavigate();
     //the only three things the backend needs for this
     const INITIAL_STATE = {
         warehouse_id : 0,
@@ -48,6 +46,7 @@ function PurchaseForm ({ purchaseFormData }){
             if (purchaseData.warehouse_id !== ""){
                 let currentWarehouse = data.find(warehouse => warehouse.warehouse_id == purchaseData.warehouse_id);
                 setcurrentStock(currentWarehouse.current_stock_level);
+                console.log(productCost)
             }
             else
             {
@@ -62,48 +61,41 @@ function PurchaseForm ({ purchaseFormData }){
     }, [purchaseData])
     // Next, on user submit, we will post to the database
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault;
         //lets do some front end validation
         const form = event.currentTarget;
         if (form.checkValidity() === false || purchaseData.warehouse_id == 0 || purchaseData.amount == 0 ) {
           event.preventDefault();
           event.stopPropagation();
-          setValidated(true);
+ 
+        }
+    
+        setValidated(true);
+        
+        //harcoding the localhost URL for now, ideally should be in a .env but cloning from github got confusing for them when it was there
+        const url = (`http://localhost:3001/products/${productId}`)
+        const response = await fetch(url, {
+            method : 'POST',
+            headers: {
+                'accept'       : 'application/json',
+                'content-type' : 'application/json'
+            },
+            body   : JSON.stringify(purchaseData)
+        },{mode:'cors'});
+        if(response.status !== 201)
+        {
+            //handle error here
         }
         else
         {
-            setValidated(true);
-            const url = (`http://localhost:3001/products/${productId}`);
-            const response = await fetch(url, {
-                method : 'POST',
-                headers: {
-                    'accept'       : 'application/json',
-                    'content-type' : 'application/json'
-                },
-                body   : JSON.stringify(purchaseData)
-            },{mode:'cors'});
-            if(response.status !== 201){
-
-                const message = await response.json();
-                
-            }
-            else{
-
-                //handle error here
-                const message = await response.json();
-                navigate(`/products/${productId}?purchaseSuccess=true`);
-                navigate(0);
-                
-                //lets fix those state vars to show success
-
-            }
-
+            // a toast message! how fun
+            console.log(response);
+            const message = await response.json();
+            console.log(message)
         }
-
     }
     return(
         <Form data-bs-theme="dark" onSubmit={handleSubmit}  noValidate validated={validated} >
-            <h5 style={{textAlign:'right', color:'green'}}> You currently have ${ownerMoneyLeft} dollars to spend </h5>
             <Form.Group className="mb-3">
             <Form.Label > Select Warehouse to Send To: </Form.Label>
             <Form.Select aria-label="Default select example" name='warehouse_id' required onChange={handleChange} value={purchaseData.warehouse_id}>
@@ -152,4 +144,4 @@ function PurchaseForm ({ purchaseFormData }){
         </Form>
     );
 }
-export default PurchaseForm;
+export default TransferForm;

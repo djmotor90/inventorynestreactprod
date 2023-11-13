@@ -1,6 +1,7 @@
 //Import in all required hooks and dependencies
-import { useEffect, useState }    from "react";
-import { useNavigate,useParams }  from "react-router-dom";
+import { useEffect, useState }                    from "react";
+import { useParams,useSearchParams }              from "react-router-dom";
+
 //Import Bootstrap and styling components
 import Container from 'react-bootstrap/Container';
 import Row       from 'react-bootstrap/Row';
@@ -8,6 +9,7 @@ import Col       from 'react-bootstrap/Col';
 import Button    from 'react-bootstrap/Button';
 import Card      from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
+import Toast     from 'react-bootstrap/Toast';
 //Import in homemade Components
 import ShowCard     from '../ShowOneEntry/ShowCard';
 import GeneralTable from "../GeneralTable";
@@ -16,7 +18,18 @@ import PurchaseForm from "../ShowOneEntry/PurchaseForm";
 
 function ShowProduct (){
     const { id } = useParams();
-    //const navigate = useNavigate();
+    //Check for incoming Toast Notifs
+    //On success of an add, you will be redirected here and create a success toast notification
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [toastShow, setToastShow] = useState(false);
+    const [toastMessage,setToastMessage] = useState('');
+    /*const checkForToast = () => {
+        if (searchParams.get('purchase')){
+            //check if it was a success or error
+            console.log(searchParams.get('purchase'));
+            setToastShow(true);
+        }
+    };*/
     const [showFormData, setShowFormData] = useState(null);
     const [showTableData, setShowTableData] = useState(null);
     const [name, setName] = useState(null);
@@ -47,6 +60,7 @@ function ShowProduct (){
         }
       }
       useEffect(() => {
+        //checkForToast();
         makeAPICall();
       }, []);
       //wait until data loads to populate your components
@@ -55,6 +69,19 @@ function ShowProduct (){
       const displayTable = showTableData && <GeneralTable data={[showTableData, 'warehouse_id', 'warehouses']}/>;
       const displayPurchaseForm = purchaseFormData && <PurchaseForm purchaseFormData={ purchaseFormData }/>;
     return(
+    <div>
+        <Toast onClose={() => setToastShow(false)} data-bs-theme="dark" show={toastShow} delay={3000} autohide style = {{position:'absolute', right: '0'}}>
+            <Toast.Header>
+            <img
+                src="holder.js/20x20?text=%20"
+                className="rounded me-2"
+                alt=""
+            />
+            <strong className="me-auto">Inventory Nest</strong>
+            <small>Just Now</small>
+            </Toast.Header>
+            <Toast.Body> {toastMessage} </Toast.Body>
+        </Toast>
         <Container fluid>
             <Row>
                 <Col className = 'd-flex justify-content-center'>{displayCard}</Col>
@@ -78,7 +105,6 @@ function ShowProduct (){
                         <Accordion.Item eventKey="1">
                             <Accordion.Header>Purchase More {name}</Accordion.Header>
                             <Accordion.Body>
-                                <h5 style={{textAlign:'right', color:'green'}}> You currently have ${ownerMoney} dollars to spend </h5>
                                 {displayPurchaseForm}
                             </Accordion.Body>
                         </Accordion.Item>
@@ -87,6 +113,7 @@ function ShowProduct (){
                 </Card>
             </Row>
         </Container>
+    </div>
     )
 }
 export default ShowProduct;
