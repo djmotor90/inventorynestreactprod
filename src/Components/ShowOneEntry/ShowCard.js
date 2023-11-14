@@ -19,7 +19,7 @@ function ShowCard ({ data }){
     };
     const handleDeleteClick = async () =>{
       const url = (`http://localhost:3001/${data.path}/${data.id}`);
-      await fetch(url, {
+      const response = await fetch(url, {
           'method': 'DELETE'
       });
       if(response.status !== 201){

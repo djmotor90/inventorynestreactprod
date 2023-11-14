@@ -81,7 +81,7 @@ function TransferForm ({ TransferFormData }){
         event.preventDefault();
         //lets do some front end validation
         const form = event.currentTarget;
-        if (form.checkValidity() === false && warehouseFrom == warehouseTo) {
+        if (form.checkValidity() === false && transferData.warehouseFrom === transferData.warehouseTo) {
           event.preventDefault();
           event.stopPropagation();
           setValidated(true);

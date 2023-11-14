@@ -29,7 +29,7 @@ function EditProduct (){
       }, []);
       //Make a handler for returning back to the product
       const handleReturnClick = () =>{
-        navigate(`/${data.path}/${data.id}`);
+        navigate(`/products/${id}`);
       };
       //once the data is loaded in display the information
       //in addition to the current form add in if you want to buy new products

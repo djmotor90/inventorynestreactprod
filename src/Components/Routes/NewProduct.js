@@ -25,7 +25,7 @@ function NewProduct (){
       //in addition to the current form add in if you want to buy new products
       const displayForm = formInputData  && <GeneralForm data = {formInputData} path= 'products' type='new'/>;
     return(
-      <div className="newFormHolder">
+      <div className = 'd-flex justify-content-center'>
           <Card border="info" data-bs-theme="dark" className="newFormHolder">
             <Card.Header><Card.Title style= {{color: '#61dafb'}}>Create a New Product</Card.Title></Card.Header>
             <Card.Body>
