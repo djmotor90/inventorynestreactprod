@@ -1,4 +1,7 @@
 import logo from './logo.svg';
+import HorizontalNavbar from "./Components/HorizontalNavbar";
+import VerticalNavbar from "./Components/VerticalNavbar";
+import Home from './Components/Home';
 import './App.css';
 
 //make a horiztonal and vertical navbar
@@ -7,8 +10,9 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <HorizontalNavbar/>
-        <VerticalNavbar/>
+        <HorizontalNavbar />
+        <VerticalNavbar />
+       
         <Routes>
           <Route exact path='/' element={<Home />}/>
           <Route path='/products' element={<Products/>}/>
