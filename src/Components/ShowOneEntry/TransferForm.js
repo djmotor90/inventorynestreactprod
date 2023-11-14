@@ -113,9 +113,9 @@ function TransferForm ({ TransferFormData }){
     return(
         
         <Form data-bs-theme="dark" onSubmit={handleSubmit}  noValidate validated={validated} >
-            <div class="container">
-            <div class="row"> 
-                                
+            <div class="container py-5 h-100">
+            <div class="row">
+                <div class="col-lg-4 p-2 bg-gray">
             <Form.Group className="mb-3">
             <Form.Label > Select Warehouse to Send From: </Form.Label>
             <Form.Select aria-label="Default select example" name='warehouseFrom' required onChange={handleChange} value={transferData.warehouseFrom}>
@@ -133,8 +133,12 @@ function TransferForm ({ TransferFormData }){
                     </Col>
             </Form.Group>
             </div>  
-           
+            </div>
+            </div>
 
+            <div class="container">
+            <div class="row mt-5">
+            <div class="col-md-4 ml-auto">
                     <Form.Group className="mb-3">
                     <Form.Label> Transfer Amount </Form.Label>
                     <Col sm="10">
@@ -144,8 +148,6 @@ function TransferForm ({ TransferFormData }){
                         Please choose an amount that does not exceed the amount available
                     </Form.Control.Feedback>
             </Form.Group>
-           
-   
             <Form.Group className="mb-3">
             <Form.Label > Select Warehouse to Send To: </Form.Label>
             <Form.Select aria-label="Default select example" name='warehouseTo' required onChange={handleChange} value={transferData.warehouseTo}>
@@ -162,13 +164,21 @@ function TransferForm ({ TransferFormData }){
                         <Form.Control type="number" value={toCurrentStock} disabled readOnly/>
                     </Col>
              </Form.Group>
-             
+             </div>
            </div>
+           </div>
+
+           <div class="container py-5 h-100">
+            <div class="row mt-5">
+            <div class="col-lg-5 bg-gray m-auto">
             <Form.Group as={Row} className="mb-3">
                 <Col sm={{ span: 10, offset: 0 }}>
                 <Button type="submit"> Make a Transfer</Button>
                 </Col>
             </Form.Group>
+            </div>
+           </div>
+           </div>
         </Form>
         
     );
