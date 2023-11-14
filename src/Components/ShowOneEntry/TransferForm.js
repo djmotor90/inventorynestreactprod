@@ -168,7 +168,7 @@ function TransferForm ({ TransferFormData }){
            </div>
            </div>
 
-           <div class="container py-5 h-100">
+           <div class="container">
             <div class="row mt-5">
             <div class="col-lg-5 bg-gray m-auto">
             <Form.Group as={Row} className="mb-3">
