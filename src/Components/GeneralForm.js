@@ -76,6 +76,8 @@ function NewForm ({ data, path, type }){
                 console.log(message)
                 const idRoute = message.id;
                 if (type === 'new'){
+                    //TODO toast.success, pass over the toast state variable
+                    //look into toast
                     navigate(`/${path}/${idRoute}?addSuccess=true`);
                 }else{
                     navigate(`/${path}/${idRoute}?editSuccess=true`);
