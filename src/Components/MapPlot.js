@@ -19,7 +19,7 @@ const MapPlot = ({ data }) => {
                 key={geo.rsmKey}
                 stroke="#FFF"
                 geography={geo}
-                fill={fullStateNames.includes(geo.properties.name) ? "orange" : "grey"}
+                fill={fullStateNames.includes(geo.properties.name) ? "#9DC183" : "grey"}
               />
             ))}
           </>
