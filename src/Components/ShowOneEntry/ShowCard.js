@@ -52,10 +52,12 @@ function ShowCard ({ data }){
         <ListGroup className="list-group-flush">
               {displayList}
         </ListGroup>
+        <Card className="text-center">
         <Card.Body>
-          <Button variant="primary" onClick={() => handleEditClick()}>Edit This Entry</Button>
-          <Button variant="danger" onClick={() => handleDeleteClick()}>Delete this Entry</Button>
+          <Button variant="btn btn-primary" onClick={() => handleEditClick()}>Edit This Entry</Button>         
+          <Button variant="btn btn-danger" onClick={() => handleDeleteClick()}>Delete this Entry</Button>
         </Card.Body>
+        </Card>
       </Card>
     );
 };
