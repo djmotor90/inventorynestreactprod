@@ -121,11 +121,13 @@ function NewForm ({ data, path, type }){
                     </Form.Group>
                 );
             case 'text':
+                //since i havent put in upload functionality just disable this field
+                let disabled = key.includes('filename') ? 'disabled' : '';
                 return(
                     <Form.Group key={key} as={Row} className="mb-3">
                     <Form.Label> {key}: </Form.Label>
                     <Col sm="10">
-                        <Form.Control name={key} value={postData[key]} type="text" required={required} onChange={handleChange} placeholder="value"/>
+                        <Form.Control name={key} value={postData[key]} type="text" required={required} disabled={disabled} onChange={handleChange} placeholder="value"/>
                     </Col>
                     </Form.Group>
                 );

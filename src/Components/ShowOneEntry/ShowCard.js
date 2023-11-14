@@ -1,5 +1,6 @@
 //import all dependencies and Hooks
-import { useNavigate}  from "react-router-dom";
+import { useEffect, useState }       from "react";
+import { useNavigate}                from "react-router-dom";
 //import in all bootstrap components
 import Card      from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -13,6 +14,23 @@ import Button    from 'react-bootstrap/Button';
 import placeHolder from '../../assets/placeholder-600x400.jpg'
 function ShowCard ({ data }){
     //there are 4 general categories, the id, the name, and the pic
+    const [imageData, setImageData] = useState(null);
+    //first lets go and fetch the pic from the AWS bucket
+    const makeAPICall = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/images/${data.picture}`, {mode:'cors'});
+        setImageData(response.url);
+      }
+      catch (e) {
+        //eventually will have to do something
+        //but for now just throw in the placeholder
+        console.log(e, 'error')
+      }
+    }
+    useEffect(() => {
+      makeAPICall();
+    }, []);
+    const imagesrc = imageData ? imageData : placeHolder;
     const navigate = useNavigate();
     const handleEditClick = () =>{
       navigate(`/${data.path}/${data.id}/edit`);
@@ -44,7 +62,7 @@ function ShowCard ({ data }){
       )});
     return(
         <Card style={{ width: '38rem' }} data-bs-theme="dark" >
-        <Card.Img variant="top" src={placeHolder} />
+        <Card.Img variant="top" src={imagesrc} />
         <Card.Body>
           <Card.Title>{data.name}</Card.Title>
           <Card.Text>{data.description}</Card.Text>
