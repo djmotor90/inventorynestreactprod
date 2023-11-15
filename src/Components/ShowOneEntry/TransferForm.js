@@ -115,7 +115,7 @@ function TransferForm ({ TransferFormData }){
         <Form data-bs-theme="dark" onSubmit={handleSubmit}  noValidate validated={validated} >
             
              <Row mt-5>
-                <Col md={5}>
+                <Col xs={6} md={4}>
             <Form.Group className="mb-3">
             <Form.Label > Select Warehouse to Send From: </Form.Label>
             <Form.Select aria-label="Default select example" name='warehouseFrom' required onChange={handleChange} value={transferData.warehouseFrom}>
@@ -134,16 +134,18 @@ function TransferForm ({ TransferFormData }){
             </Form.Group>
             </Col>      
             
-            <Col xs={5}>
+            <Col xs={6} md={4}>
                     <Form.Group className="mb-3">
                     <Form.Label> Transfer Amount </Form.Label>
                     <Col sm="10">
                         <Form.Control required onChange={handleChange} type="number" name='amount' min="1" max={maxValue} value={transferData.amount}/>
-                    </Col>
+                    </Col>                 
                     <Form.Control.Feedback type="invalid">
                         Please choose an amount that does not exceed the amount available
                     </Form.Control.Feedback>
             </Form.Group>
+            </Col>
+            <Col xs={6} md={4}>
             <Form.Group className="mb-3">
             <Form.Label > Select Warehouse to Send To: </Form.Label>
             <Form.Select aria-label="Default select example" name='warehouseTo' required onChange={handleChange} value={transferData.warehouseTo}>
