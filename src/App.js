@@ -1,6 +1,6 @@
 //Import in all needed hooks and dependencies
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //Import in all CSS and prestyled components
 import './App.css';
 //Import in our custom components
@@ -21,6 +21,8 @@ import NewCustomer        from './Components/Routes/NewCustomer';
 import Purchase           from './Components/Routes/Purchase';
 import Reporting          from './Components/Routes/Reporting';
 import Transfer           from './Components/Routes/Transfer';
+import CustomerReporting  from './Components/Routes/CustomerReporting';
+import ProductReporting   from './Components/Routes/ProductReporting';
 //import InventoryAdd       from './Components/Routes/InventoryAdd'
 
 
@@ -64,6 +66,8 @@ function App() {
             <Route path='/customers/:id' element={<ShowCustomer/>}/>
             <Route path='/customers/:id/buy' element={<Purchase/>}/>
             <Route path='/reporting' element={<Reporting/>}/>
+            <Route path='/reporting/customer' element={<CustomerReporting/>}/>
+            <Route path='/reporting/product' element={<ProductReporting/>}/>
           </Routes>
         </div>
       </Router>
