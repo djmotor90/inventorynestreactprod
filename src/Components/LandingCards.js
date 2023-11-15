@@ -6,27 +6,9 @@ import Card      from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button    from 'react-bootstrap/Button';
 
-function LandingCard({ data }) {    //there are 4 general categories, analystic report
-    const navigate = useNavigate();
-    const handleAllCustomersClick = () =>{
-      navigate(`/${data.path}/${data.id}/Customers`);
-       };
-        const handleAllWarehousesClick = () =>{
-         navigate(`/${data.path}/${data.id}/Warehouses`);
-          };
-          const handleAllSalesClick = () =>{
-           navigate(`/${data.path}/${data.id}/Sales`);
-            };
-             const handlePerformanceAnalyticsClick = () =>{
-              navigate(`/${data.path}/${data.id}/reporting`);
-               };
-
-            const displayList = Object.keys(data.list).map((item) => {
-                return(
-                  <ListGroup.Item key={item}>
-                    
-                  </ListGroup.Item>
-                )});
+function LandingCard({ data }) {    
+    //there are 4 general categories, analystic report
+   
    return(
         <ListGroup horizontal data-bs-theme="dark">
             <ListGroup.Item>
@@ -37,7 +19,7 @@ function LandingCard({ data }) {    //there are 4 general categories, analystic 
                         <Card.Text>
                                 Currently you are serving {data.customerCount} customers across the United States.
                         </Card.Text>
-                        <Button variant="btn btn-primary" onClick={() => handleViewAllCustomersk()}> View All Customers </Button>
+                        <Button variant="btn btn-primary" onClick={() => handleViewAllCustomers()}> View All Customers </Button>
                     </Card.Body>
                 </Card>
             </ListGroup.Item>
