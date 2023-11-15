@@ -7,23 +7,26 @@ import './App.css';
   //Custom components making the general frame
 import Navbar           from './Components/Navbar';
   //Custome components making the routes
-import Home               from './Components/Routes/Home';
-import ShowProducts       from './Components/Routes/ShowProducts';
-import ShowProduct        from './Components/Routes/ShowProduct';
-import NewProduct         from './Components/Routes/NewProduct';
-import EditProduct         from './Components/Routes/EditProduct';
+import Home                       from './Components/Routes/Home';
 
-import ShowWarehouses     from './Components/Routes/ShowWarehouses';
-import ShowWarehouse      from './Components/Routes/ShowWarehouse';
-import NewWarehouse       from './Components/Routes/NewWarehouse';
+import ShowProducts               from './Components/Routes/ShowProducts';
+import ShowProduct                from './Components/Routes/ShowProduct';
+import NewProduct                 from './Components/Routes/NewProduct';
+import EditProduct                from './Components/Routes/EditProduct';
 
-import ShowCustomers      from './Components/Routes/ShowCustomers';
-import ShowCustomer       from './Components/Routes/ShowCustomer';
-import NewCustomer        from './Components/Routes/NewCustomer';
-import Purchase           from './Components/Routes/Purchase';
-import Reporting          from './Components/Routes/Reporting';
-import Transfer           from './Components/Routes/Transfer';
-//import InventoryAdd       from './Components/Routes/InventoryAdd'
+import ShowWarehouses             from './Components/Routes/ShowWarehouses';
+import ShowWarehouse              from './Components/Routes/ShowWarehouse';
+import NewWarehouse               from './Components/Routes/NewWarehouse';
+
+import ShowCustomers              from './Components/Routes/ShowCustomers';
+import ShowCustomer               from './Components/Routes/ShowCustomer';
+import NewCustomer                from './Components/Routes/NewCustomer';
+
+
+import Purchase                   from './Components/Routes/Purchase';
+import Reporting                  from './Components/Routes/Reporting';
+import CustomerReporting          from './Components/Routes/CustomerReporting';
+import ProductReporting           from './Components/Routes/ProductReporting';
 
 
 
@@ -61,7 +64,6 @@ function App() {
             <Route path='/warehouses' element = {<ShowWarehouses/>}/>
             <Route path='/warehouses/new' element = {<NewWarehouse/>}/>
             <Route path='/warehouses/:id' element = {<ShowWarehouse/>}/>
-            <Route path='/warehouses/:id/transfer' element = {<Transfer/>}/>
 
             <Route path='/customers' element={<ShowCustomers/>}/>
             <Route path='/customers/new' element={<NewCustomer/>}/>
@@ -69,6 +71,8 @@ function App() {
             <Route path='/customers/:id/buy' element={<Purchase/>}/>
 
             <Route path='/reporting' element={<Reporting/>}/>
+            <Route path='/reporting' element={<CustomerReporting/>}/>
+            <Route path='/reporting' element={<ProductReporting/>}/>
           </Routes>
         </div>
       </Router>

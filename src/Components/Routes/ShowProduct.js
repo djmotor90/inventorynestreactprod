@@ -107,7 +107,7 @@ function ShowProduct (){
                 <Col className = 'd-flex justify-content-center'>{displayCard}</Col>
                 <Col className = 'd-flex justify-content-center'> {displayperformanceCard}</Col>
              </Row>
-            <Row style={{padding:'40px'}}>  
+            <Row style={{padding:'10px 40px'}}>  
             <Card data-bs-theme="dark">
                 <Card.Header as="h5">{name} Is Present In {tableLength} Warehouses </Card.Header>
                 <Card.Body>
@@ -115,21 +115,26 @@ function ShowProduct (){
                       Click any entry below to view the warehouse information
                     </Card.Text>
                     <Col> {displayTable} </Col>
-                    <Accordion defaultActiveKey="1">
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>Transfer {name} Between Warehouses</Accordion.Header>
-                            <Accordion.Body>
-                                {displayTransferForm}
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="1">
-                            <Accordion.Header>Purchase More of {name}</Accordion.Header>
-                            <Accordion.Body>
-                                {displayPurchaseForm}
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
                 </Card.Body>
+                </Card>
+            </Row>
+            <Row style={{padding:'10px 40px'}}>
+                <Card  data-bs-theme="dark">
+                    <Card.Header as="h5"> Buy or Transfer {name} </Card.Header>
+                    <Accordion defaultActiveKey="1">
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>Transfer {name} Between Warehouses</Accordion.Header>
+                                <Accordion.Body>
+                                    {displayTransferForm}
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="1">
+                                <Accordion.Header>Purchase More of {name}</Accordion.Header>
+                                <Accordion.Body>
+                                    {displayPurchaseForm}
+                                </Accordion.Body>
+                            </Accordion.Item>
+                    </Accordion>
                 </Card>
             </Row>
         </Container>

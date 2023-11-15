@@ -12,7 +12,6 @@ function ShowProducts (){
           const response = await fetch('http://localhost:3001/products', {mode:'cors'});
           const data = await response.json();
           setProductData(data);
-          console.log(data)
         }
         catch (e) {
           console.log(e, 'error')

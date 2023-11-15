@@ -1,18 +1,16 @@
 //import all dependencies and Hooks
 import { useEffect, useState}      from "react";
-import { Link, useSearchParams  }  from "react-router-dom";
 //Import all homemade components
 import GeneralTable                from '../GeneralTable';
 
 
 function ShowCustomers (){
-    const [productData, setProductData] = useState(null);
+    const [customerData, setCustomerData] = useState(null);
     const makeAPICall = async () => {
         try {
           const response = await fetch('http://localhost:3001/customers', {mode:'cors'});
           const data = await response.json();
-          setProductData(data);
-          console.log(data)
+          setCustomerData(data);
         }
         catch (e) {
           console.log(e, 'error')
@@ -22,7 +20,7 @@ function ShowCustomers (){
         makeAPICall();
       }, []);
       //components that will load in once data is ready
-      const displayTable = productData && <GeneralTable data={[productData,'customer_id','customers']}/>
+      const displayTable = customerData && <GeneralTable data={[customerData,'customer_id','customers']}/>
     return(
         <div>
             {displayTable}
@@ -30,4 +28,3 @@ function ShowCustomers (){
     );
 };
 export default ShowCustomers;
-
