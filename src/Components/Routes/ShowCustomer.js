@@ -57,7 +57,6 @@ function ShowCustomer (){
            }
           setName(data.showFormInfo.name);
           //set delivery form data
-
         }
         catch (e) {
           //eventually will have to do something

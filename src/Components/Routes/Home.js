@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row       from 'react-bootstrap/Row';
 import Col       from 'react-bootstrap/Col';
+import Card      from 'react-bootstrap/Card';
 //Import in all components
 import ReportingCard from '../ReportingCard';
 import LandingCard   from '../LandingCards';
@@ -40,20 +41,28 @@ function Home( { ownerName }) {
 
   return (
     <div>
-      <h1>Welcome back, {ownerName} </h1>
       <Container fluid>
-      <Row>
-        <Col sm={7}> {displayCards}</Col>
-        <Col sm={5} className="min-w-600" > {displayScatter}</Col>
-      </Row>
-      <Row>
-        <Col sm={8}> {displayMapPlot} </Col>
-        <Col sm={4}>{displayTransferData}</Col>
-      </Row>
-    </Container>
-
-      
-      
+          <Row>
+            <Card style={{ width: '95%', margin:' 0px 2.5% 40px 2.5%' }} data-bs-theme="dark" >
+                <h1>Welcome back, {ownerName} </h1>
+            </Card>
+          </Row>
+          <Row style={{ width: '95%', margin:' 0px 2.5% 40px 2.5%' }} className="d-flex justify-content-between">
+            <Col sm={7}> {displayCards}</Col>
+            <Col sm={5} className="min-w-600" > {displayScatter}</Col>
+          </Row>
+          <Row style={{ width: '95%', margin:' 0px 2.5% 40px 2.5%' }} className="d-flex justify-content-between">
+            <Col sm={8}> 
+                    <Card style={{ width: '100%' }} data-bs-theme="dark" >
+                    <Card.Body>
+                      <Card.Title> States in which a warehouse is present</Card.Title>
+                      {displayMapPlot} 
+                    </Card.Body>
+                  </Card>
+            </Col>
+            <Col sm={4}>{displayTransferData}</Col>
+          </Row>
+      </Container> 
     </div>
   );
 }

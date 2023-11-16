@@ -17,13 +17,15 @@ import EditProduct                from './Components/Routes/EditProduct';
 import ShowWarehouses             from './Components/Routes/ShowWarehouses';
 import ShowWarehouse              from './Components/Routes/ShowWarehouse';
 import NewWarehouse               from './Components/Routes/NewWarehouse';
+import EditWarehouse              from './Components/Routes/EditWarehouse';
 
 import ShowCustomers              from './Components/Routes/ShowCustomers';
 import ShowCustomer               from './Components/Routes/ShowCustomer';
 import NewCustomer                from './Components/Routes/NewCustomer';
+import EditCustomer               from './Components/Routes/EditCustomer';
 
 
-import Purchase                   from './Components/Routes/Purchase';
+import Purchase                   from './Components/Routes/Purchase'; ///this is going to be exactly what is shown as the form secton of any ShowCust, but for cust w/ primary id of 1 nd only that form
 import Reporting                  from './Components/Routes/Reporting';
 import CustomerReporting          from './Components/Routes/CustomerReporting';
 import ProductReporting           from './Components/Routes/ProductReporting';
@@ -64,10 +66,12 @@ function App() {
             <Route path='/warehouses' element = {<ShowWarehouses/>}/>
             <Route path='/warehouses/new' element = {<NewWarehouse/>}/>
             <Route path='/warehouses/:id' element = {<ShowWarehouse/>}/>
+            <Route path='/warehouses/:id/edit' element={<EditWarehouse/>}/>
 
             <Route path='/customers' element={<ShowCustomers/>}/>
             <Route path='/customers/new' element={<NewCustomer/>}/>
             <Route path='/customers/:id' element={<ShowCustomer/>}/>
+            <Route path='/customer/:id/edit' element={<EditCustomer/>}/>
             <Route path='/customers/:id/buy' element={<Purchase/>}/>
 
             <Route path='/reporting' element={<Reporting/>}/>
