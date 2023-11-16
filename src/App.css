@@ -3,6 +3,27 @@
   min-height: 100vh;
 }
 
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  border: none;
+}
+
+.list-group-horizontal .list-group-item {
+  flex: 1;
+  margin-bottom: 0;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
