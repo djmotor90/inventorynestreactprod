@@ -80,9 +80,9 @@ function ShowCard ({ data }){
         <ListGroup className="list-group-flush">
               {displayList}
         </ListGroup>
-        <Card.Body>
-          <Button variant="primary" onClick={() => handleEditClick()}>Edit This Entry</Button>
-          <Button variant="danger" onClick={() => handleDeleteClick()}>Delete this Entry</Button>
+        <Card.Body className = 'd-flex justify-content-center'>
+          <Button variant="primary" style={{margin: '30px'}} onClick={() => handleEditClick()}>Edit This Entry</Button>
+          <Button variant="danger" style={{margin: '30px'}} onClick={() => handleDeleteClick()}>Delete this Entry</Button>
         </Card.Body>
         </Card>
     );
