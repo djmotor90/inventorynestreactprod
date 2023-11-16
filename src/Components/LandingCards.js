@@ -1,10 +1,13 @@
 //Import all hooks and dependencies
-import { Link }                from "react-router-dom";
 import { useNavigate}  from "react-router-dom";
 //Import in all bootstrap components
 import Card      from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button    from 'react-bootstrap/Button';
+
+
+
+
 
 function LandingCard({ data }) {    
     //there are 4 general categories, analystic report
