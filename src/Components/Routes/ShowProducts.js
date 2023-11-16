@@ -1,6 +1,5 @@
 //import all dependencies and Hooks
 import { useEffect, useState}      from "react";
-import { Link, useSearchParams  }  from "react-router-dom";
 //Import all homemade components
 import GeneralTable                from '../GeneralTable';
 

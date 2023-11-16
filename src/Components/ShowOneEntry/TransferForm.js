@@ -111,7 +111,11 @@ function TransferForm ({ TransferFormData }){
         }
     }
     return(
+        
         <Form data-bs-theme="dark" onSubmit={handleSubmit}  noValidate validated={validated} >
+            
+             <Row mt-5>
+                <Col xs={6} md={4}>
             <Form.Group className="mb-3">
             <Form.Label > Select Warehouse to Send From: </Form.Label>
             <Form.Select aria-label="Default select example" name='warehouseFrom' required onChange={handleChange} value={transferData.warehouseFrom}>
@@ -122,21 +126,26 @@ function TransferForm ({ TransferFormData }){
                     Please choose a warehouse
             </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3">
+             <Form.Group className="mb-3">
                     <Form.Label> This Warehouse currently has this many in stock: </Form.Label>
                     <Col sm="10">
                         <Form.Control type="number" value={fromCurrentStock} disabled readOnly/>
                     </Col>
             </Form.Group>
-            <Form.Group className="mb-3">
+            </Col>      
+            
+            <Col xs={6} md={4}>
+                    <Form.Group className="mb-3">
                     <Form.Label> Transfer Amount </Form.Label>
                     <Col sm="10">
                         <Form.Control required onChange={handleChange} type="number" name='amount' min="1" max={maxValue} value={transferData.amount}/>
-                    </Col>
+                    </Col>                 
                     <Form.Control.Feedback type="invalid">
                         Please choose an amount that does not exceed the amount available
                     </Form.Control.Feedback>
             </Form.Group>
+            </Col>
+            <Col xs={6} md={4}>
             <Form.Group className="mb-3">
             <Form.Label > Select Warehouse to Send To: </Form.Label>
             <Form.Select aria-label="Default select example" name='warehouseTo' required onChange={handleChange} value={transferData.warehouseTo}>
@@ -152,13 +161,23 @@ function TransferForm ({ TransferFormData }){
                     <Col sm="10">
                         <Form.Control type="number" value={toCurrentStock} disabled readOnly/>
                     </Col>
-            </Form.Group>
+             </Form.Group>
+             </Col>       
+
+             <Col md={{ span: 6, offset: 3 }}>
             <Form.Group as={Row} className="mb-3">
                 <Col sm={{ span: 10, offset: 0 }}>
                 <Button type="submit"> Make a Transfer</Button>
                 </Col>
             </Form.Group>
+            </Col>  
+          
+            
+           </Row>
+           
         </Form>
+        
     );
+    
 }
 export default TransferForm;
