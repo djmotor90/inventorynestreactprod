@@ -12,7 +12,6 @@ function CustomerReporting() {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   useEffect(() => {
-    // Function to fetch customer data from the server
     const fetchCustomerData = async () => {
       try {
         const response = await fetch('http://localhost:3001/reporting/customers', { mode: 'cors' });
@@ -20,7 +19,6 @@ function CustomerReporting() {
           throw new Error('Failed to fetch customer data');
         }
         const data = await response.json();
-
         if (Array.isArray(data)) {
           calculateCustomerDemographics(data);
         } else {
@@ -31,7 +29,6 @@ function CustomerReporting() {
       }
     };
 
-    // Function to calculate customer demographics
     const calculateCustomerDemographics = (customerData) => {
       const demographics = {};
       customerData.forEach((customer) => {
@@ -47,10 +44,9 @@ function CustomerReporting() {
     };
 
     fetchCustomerData();
-  }, []); // Empty dependency array
+  }, []);
 
   useEffect(() => {
-    // Function to fetch top 5 customers by purchase count
     const fetchTopCustomers = async () => {
       try {
         const response = await fetch('http://localhost:3001/reporting/customerorders', { mode: 'cors' });
@@ -60,7 +56,13 @@ function CustomerReporting() {
         const data = await response.json();
 
         if (Array.isArray(data)) {
-          setTopCustomers(data);
+          const updatedData = data.map(customer => ({
+            ...customer,
+            customer_picture_url: customer.customer_picture_filename
+              ? `http://localhost:3001/images/${customer.customer_picture_filename}`
+              : null
+          }));
+          setTopCustomers(updatedData);
         } else {
           throw new Error('Fetched data is not an array');
         }
@@ -70,14 +72,12 @@ function CustomerReporting() {
     };
 
     fetchTopCustomers();
-  }, []); // Empty dependency array
+  }, []);
 
-  // Sort topCustomers by total_quantity in descending order and limit to the top 5
   const sortedTopCustomers = topCustomers
     .sort((a, b) => b.total_quantity - a.total_quantity)
     .slice(0, 5);
 
-  // Function to get top 5 demographics
   const getTopDemographics = () => {
     const sortedDemographics = Object.entries(customerDemographics).sort(
       (a, b) => b[1] - a[1]
@@ -87,12 +87,10 @@ function CustomerReporting() {
 
   const topDemographics = getTopDemographics();
 
-  // Function to handle customer name click and open a popup with all customer information
   const handleCustomerClick = (customer) => {
     setSelectedCustomer(customer);
   };
 
-  // Function to close the popup
   const handleClosePopup = () => {
     setSelectedCustomer(null);
   };
@@ -140,7 +138,7 @@ function CustomerReporting() {
                         >
                           <h3>{customer.customer_first_name} {customer.customer_last_name}</h3>
                         </button>
-                        <h4>Quantity: {customer.quantityPurchased} - Total Spent: ${customer.amountSpent}</h4>
+                        <h4>Quantity: {customer.quantityPurchased} - Total Spent: ${customer.amountSpent.toFixed(2)}</h4>
                       </Card.Body>
                     </Card>
                   </li>
@@ -164,17 +162,28 @@ function CustomerReporting() {
       </Row>
 
       {/* Customer Popup */}
-      <Modal show={selectedCustomer !== null} onHide={handleClosePopup}>
+      <Modal show={selectedCustomer !== null} onHide={handleClosePopup} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>{selectedCustomer?.customer_first_name} {selectedCustomer?.customer_last_name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Quantity: {selectedCustomer?.quantityPurchased} - Total Spent: ${selectedCustomer?.amountSpent}</h4>
-          {/* Display all available customer information here */}
-          <p>Customer ID: {selectedCustomer?.customer_id}</p>
-          <p>City: {selectedCustomer?.customer_city}</p>
-          <p>State: {selectedCustomer?.customer_state}</p>
-          {/* Add more customer-related information as needed */}
+          <Row>
+            <Col>
+              <h4>Quantity: {selectedCustomer?.quantityPurchased} - Total Spent: ${selectedCustomer?.amountSpent.toFixed(2)}</h4>
+              <p><strong>Customer ID:</strong> {selectedCustomer?.customer_id}</p>
+              <p><strong>City:</strong> {selectedCustomer?.customer_city}</p>
+              <p><strong>State:</strong> {selectedCustomer?.customer_state}</p>
+              <p><strong>Zipcode:</strong> {selectedCustomer?.customer_zipcode}</p>
+              {/* Add more customer-related information as needed */}
+            </Col>
+            {selectedCustomer?.customer_picture_url && (
+              <Col>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <img src={selectedCustomer.customer_picture_url} alt="Customer" style={{ maxWidth: '100%', maxHeight: '300px' }} />
+                </div>
+              </Col>
+            )}
+          </Row>
         </Modal.Body>
         <Modal.Footer>
           <button onClick={handleClosePopup}>Close</button>
