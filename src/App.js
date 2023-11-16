@@ -28,6 +28,7 @@ import EditCustomer               from './Components/Routes/EditCustomer';
 import Purchase                   from './Components/Routes/Purchase'; ///this is going to be exactly what is shown as the form secton of any ShowCust, but for cust w/ primary id of 1 nd only that form
 import Reporting                  from './Components/Routes/Reporting';
 import CustomerReporting          from './Components/Routes/CustomerReporting';
+import CustomerReportingCustomer          from './Components/Routes/CustomerReportingCustomer';
 import ProductReporting           from './Components/Routes/ProductReporting';
 
 
@@ -75,8 +76,8 @@ function App() {
             <Route path='/customers/:id/buy' element={<Purchase/>}/>
 
             <Route path='/reporting' element={<Reporting/>}/>
-            <Route path='/reporting/customer' element={<CustomerReporting/>}/>
-            <Route path='/reporting/product' element={<ProductReporting/>}/>
+            <Route path='/reporting/customers' element={<CustomerReporting/>}/>
+            <Route path='/reporting/products' element={<ProductReporting/>}/>
             <Route path='/reporting/customer/:id' element={<CustomerReportingCustomer/>}/>
             <Route path='/reporting/product/:id' element={<ProductReporting/>}/>
           </Routes>
