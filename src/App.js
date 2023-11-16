@@ -13,16 +13,21 @@ import ShowProducts               from './Components/Routes/ShowProducts';
 import ShowProduct                from './Components/Routes/ShowProduct';
 import NewProduct                 from './Components/Routes/NewProduct';
 import EditProduct                from './Components/Routes/EditProduct';
+//import SearchProducts                from './Components/Routes/SearchProducts';
+
 
 import ShowWarehouses             from './Components/Routes/ShowWarehouses';
 import ShowWarehouse              from './Components/Routes/ShowWarehouse';
 import NewWarehouse               from './Components/Routes/NewWarehouse';
 import EditWarehouse              from './Components/Routes/EditWarehouse';
+//import SearchWarehouses                from './Components/Routes/SearchProducts';
+
 
 import ShowCustomers              from './Components/Routes/ShowCustomers';
 import ShowCustomer               from './Components/Routes/ShowCustomer';
 import NewCustomer                from './Components/Routes/NewCustomer';
 import EditCustomer               from './Components/Routes/EditCustomer';
+//import SearchCustomers              from './Components/Routes/SearchProducts';
 
 
 import Purchase                   from './Components/Routes/Purchase'; ///this is going to be exactly what is shown as the form secton of any ShowCust, but for cust w/ primary id of 1 nd only that form

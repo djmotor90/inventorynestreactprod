@@ -10,8 +10,11 @@ import Button    from 'react-bootstrap/Button';
 
 
 function LandingCard({ data }) {    
-    //there are 4 general categories, analystic report
-   
+    const navigate = useNavigate();
+    const handleViewAllCustomersClick = () =>{navigate(`/customers`);};
+    const handleViewAllWarehousesClick = () =>{navigate(`/warehouses`);};
+    const handleViewAllSalesClick = () =>{navigate(`/sales`);};
+    const handleViewPerformanceAnalyticsClick = () =>{navigate(`/reporting`);};
    return(
         <ListGroup horizontal data-bs-theme="dark">
             <ListGroup.Item>
@@ -22,7 +25,7 @@ function LandingCard({ data }) {
                         <Card.Text>
                                 Currently you are serving {data.customerCount} customers across the United States.
                         </Card.Text>
-                        <Button variant="btn btn-primary" onClick={() => handleViewAllCustomers()}> View All Customers </Button>
+                        <Button variant="btn btn-primary" onClick={() => handleViewAllCustomersClick()}> View All Customers </Button>
                     </Card.Body>
                 </Card>
             </ListGroup.Item>
@@ -34,7 +37,7 @@ function LandingCard({ data }) {
                         <Card.Text>
                                 Currently you are running {data.warehouseCount} warehouses across the United States.
                         </Card.Text>
-                        <Button variant="btn btn-primary" onClick={() => handleViewAllWarehouses()}> View All Warehouses </Button>
+                        <Button variant="btn btn-primary" onClick={() => handleViewAllWarehousesClick()}> View All Warehouses </Button>
                     </Card.Body>
                 </Card>
             </ListGroup.Item>
@@ -46,7 +49,7 @@ function LandingCard({ data }) {
                         <Card.Text>
                                 In total, you have made {data.salesCount} individual product sales.
                         </Card.Text>
-                        <Button variant="btn btn-primary" onClick={() => handleViewAllSales()}> View All Sales </Button>
+                        <Button variant="btn btn-primary" onClick={() => handleViewAllSalesClick()}> View All Sales </Button>
                     </Card.Body>
                 </Card>
             </ListGroup.Item>
@@ -58,7 +61,7 @@ function LandingCard({ data }) {
                         <Card.Text>
                                 Grossly, you have made {data.revenueCount} dollars
                         </Card.Text>
-                        <Button variant="btn btn-primary" onClick={() => handleViewPerformanceAnalytics()}> View Performance Analytics </Button>
+                        <Button variant="btn btn-primary" onClick={() => handleViewPerformanceAnalyticsClick()}> View Performance Analytics </Button>
                     </Card.Body>
                 </Card>
             </ListGroup.Item>
