@@ -8,7 +8,26 @@ import Button    from 'react-bootstrap/Button';
 
 function LandingCard({ data }) {    
     //there are 4 general categories, analystic report
-   
+    const navigate = useNavigate();
+    const handleViewAllCustomersClick = () =>{
+      navigate(`/${data.path}/${data.id}/ShowCustomers`);
+       };
+        const handleViewAllWarehousesClick = () =>{
+         navigate(`/${data.path}/${data.id}/ShowWarehouses`);
+          };
+          const handleViewAllSalesClick = () =>{
+           navigate(`/${data.path}/${data.id}/Sales`);
+            };
+             const handleViewPerformanceAnalyticsClick = () =>{
+              navigate(`/${data.path}/${data.id}/Reporting`);
+               };
+
+            const displayList = Object.keys(data.list).map((item) => {
+                return(
+                  <ListGroup.Item key={item}>
+                    
+                  </ListGroup.Item>
+                )});
    return(
         <ListGroup horizontal data-bs-theme="dark">
             <ListGroup.Item>
