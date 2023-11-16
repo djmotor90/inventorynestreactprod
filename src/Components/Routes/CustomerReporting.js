@@ -3,11 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
 
 function CustomerReporting() {
   const [customerDemographics, setCustomerDemographics] = useState({});
   const [topCustomers, setTopCustomers] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   useEffect(() => {
     // Function to fetch customer data from the server
@@ -85,6 +87,16 @@ function CustomerReporting() {
 
   const topDemographics = getTopDemographics();
 
+  // Function to handle customer name click and open a popup with all customer information
+  const handleCustomerClick = (customer) => {
+    setSelectedCustomer(customer);
+  };
+
+  // Function to close the popup
+  const handleClosePopup = () => {
+    setSelectedCustomer(null);
+  };
+
   return (
     <Container>
       <Row>
@@ -115,7 +127,19 @@ function CustomerReporting() {
                   <li key={customer.customer_id}>
                     <Card>
                       <Card.Body>
-                        <h3>{customer.customer_first_name} {customer.customer_last_name}</h3>
+                        <button
+                          onClick={() => handleCustomerClick(customer)}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            padding: 0,
+                            cursor: 'pointer',
+                            textDecoration: 'underline',
+                            color: 'blue',
+                          }}
+                        >
+                          <h3>{customer.customer_first_name} {customer.customer_last_name}</h3>
+                        </button>
                         <h4>Quantity: {customer.quantityPurchased} - Total Spent: ${customer.amountSpent}</h4>
                       </Card.Body>
                     </Card>
@@ -138,6 +162,24 @@ function CustomerReporting() {
           </Card>
         </Col>
       </Row>
+
+      {/* Customer Popup */}
+      <Modal show={selectedCustomer !== null} onHide={handleClosePopup}>
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedCustomer?.customer_first_name} {selectedCustomer?.customer_last_name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Quantity: {selectedCustomer?.quantityPurchased} - Total Spent: ${selectedCustomer?.amountSpent}</h4>
+          {/* Display all available customer information here */}
+          <p>Customer ID: {selectedCustomer?.customer_id}</p>
+          <p>City: {selectedCustomer?.customer_city}</p>
+          <p>State: {selectedCustomer?.customer_state}</p>
+          {/* Add more customer-related information as needed */}
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleClosePopup}>Close</button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

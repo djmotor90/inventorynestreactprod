@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import Modal from 'react-bootstrap/Modal';
 
 function Reporting() {
   const [products, setProducts] = useState([]); // State for products
   const [error, setError] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Function to fetch product data from the server
   const fetchProductData = async () => {
@@ -38,6 +40,16 @@ function Reporting() {
     return Math.round(num * 100) / 100;
   };
 
+  // Function to handle product click and open a popup
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+  };
+
+  // Function to close the popup
+  const handleClosePopup = () => {
+    setSelectedProduct(null);
+  };
+
   return (
     <Container>
       <Card>
@@ -51,7 +63,21 @@ function Reporting() {
                 <li key={product.product_id} style={{ marginBottom: '20px' }}>
                   <Card>
                     <Card.Body>
-                      <Card.Title>{product.product_name}</Card.Title>
+                      <Card.Title>
+                        <button
+                          onClick={() => handleProductClick(product)}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            padding: 0,
+                            cursor: 'pointer',
+                            textDecoration: 'underline',
+                            color: 'blue',
+                          }}
+                        >
+                          {product.product_name}
+                        </button>
+                      </Card.Title>
                       <Card.Text>Product Description: {product.product_description}</Card.Text>
                       <Card.Text>Price: ${product.product_sale_price}</Card.Text>
                       <Card.Text>Provider Price: ${product.product_provider_price}</Card.Text>
@@ -67,6 +93,25 @@ function Reporting() {
           )}
         </Card.Body>
       </Card>
+
+      {/* Product Popup */}
+      <Modal show={selectedProduct !== null} onHide={handleClosePopup}>
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedProduct?.product_name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Product Description: {selectedProduct?.product_description}</p>
+          <p>Price: ${selectedProduct?.product_sale_price}</p>
+          <p>Provider Price: ${selectedProduct?.product_provider_price}</p>
+          <p>
+            Return: ${roundToTwoDecimalPlaces(selectedProduct?.product_sale_price - selectedProduct?.product_provider_price)}
+          </p>
+          {/* Add more product-related information as needed */}
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleClosePopup}>Close</button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

@@ -68,6 +68,8 @@ function App() {
             <Route path='/reporting' element={<Reporting/>}/>
             <Route path='/reporting/customer' element={<CustomerReporting/>}/>
             <Route path='/reporting/product' element={<ProductReporting/>}/>
+            <Route path='/reporting/customer/:id' element={<CustomerReportingCustomer/>}/>
+            <Route path='/reporting/product/:id' element={<ProductReporting/>}/>
           </Routes>
         </div>
       </Router>
