@@ -18,7 +18,7 @@ function OffcanvasExample( { ownerName }) {
   return (
     <>
       {[false].map((expand) => (
-        <Navbar key={expand} expand='false' className="bg-body-tertiary mb-3 justify-content-between" data-bs-theme="dark">
+        <Navbar key={expand} expand='false' fixed="top" className="bg-body-tertiary mb-3 justify-content-between" data-bs-theme="dark">
           <Container fluid>
                 <div style={{width:'235px'}}>
                   <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-fluid`}/>

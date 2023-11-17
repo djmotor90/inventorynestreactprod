@@ -61,7 +61,7 @@ function App() {
     <div className="App">
       <Router>
         <Navbar ownerName={ownerName}/>
-        <div style={{marginTop:'40px'}}>
+        <div style={{paddingTop:'100px'}}>
           <Routes>
             <Route exact path='/' element={<Home ownerName={ownerName} />}/>
             <Route path='/products' element={<ShowProducts/>}/>

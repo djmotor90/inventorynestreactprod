@@ -33,7 +33,6 @@ function GeneralTable ({ data }){
         return(
             Object.keys(row).map(key => {
                 //if the datatype this is getting is an array, i want a list for this td
-                console.log(typeof(row[key]));
                 if (typeof(row[key]) === 'object'){
                     const makeAList = Object.keys(row[key]).map((index) => {
                         return (<li key={index}> {row[key][index]} </li>)

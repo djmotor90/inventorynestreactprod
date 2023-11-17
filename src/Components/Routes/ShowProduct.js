@@ -15,6 +15,7 @@ import ShowCard     from '../ShowOneEntry/ShowCard';
 import GeneralTable from "../GeneralTable";
 import PurchaseForm from "../ShowOneEntry/PurchaseForm";
 import TransferForm from "../ShowOneEntry/TransferForm";
+import AnalyticsCard from "../ShowOneEntry/AnalyticsCard";
 
 
 function ShowProduct (){
@@ -44,6 +45,7 @@ function ShowProduct (){
     };
     //populating all needed data
     const [showFormData, setShowFormData] = useState(null);
+    const [showAnalyticsInfo, setShowAnalyticsData] = useState(null);
     const [showTableData, setShowTableData] = useState(null);
     const [name, setName] = useState(null);
     const [tableLength, setTableLength] = useState(0);
@@ -55,6 +57,7 @@ function ShowProduct (){
           //lets add to each one the name of the route
           data.showFormInfo.path = 'products';
           setShowFormData(data.showFormInfo);
+          setShowAnalyticsData(data.showAnalyticsInfo);
           //if the product isnt in any warehouses, this will be an empty array
            if (data.associateTable.length === 0){
                 setTableLength(data.associateTable.length);
@@ -81,7 +84,7 @@ function ShowProduct (){
       }, []);
       //wait until data loads to populate your components
       const displayCard = showFormData && <ShowCard data={showFormData}/>;
-      const displayperformanceCard = showFormData && <ShowCard data={showFormData}/>;
+      const displayperformanceCard = showAnalyticsInfo && <AnalyticsCard data={showAnalyticsInfo}/>;
       const displayTable = showTableData ? <GeneralTable data={[showTableData, 'warehouse_id', 'warehouses']}/> : <h5> There are no warehouses currently storing this object. </h5>;
       const displayPurchaseForm = purchaseFormData && <PurchaseForm purchaseFormData={ purchaseFormData }/>;
       //the data above actually works for both, could rename to make it more clear

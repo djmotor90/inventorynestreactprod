@@ -36,15 +36,15 @@ function Home( { ownerName }) {
   //Purpose: only try to fill page if data is loaded
   const displayTransferData = transferData  && <ReportingCard data = {transferData}/>;
   const displayCards = cardData  && <LandingCard data = {cardData} />;
-  const displayScatter = barData && <BarPlot data = {barData} />;
+  const displayScatter = barData && <BarPlot data = {barData} type="revenue" />;
   const displayMapPlot = mapPlotData && <MapPlot data={mapPlotData}/>
 
   return (
     <div>
       <Container fluid>
           <Row>
-            <Card style={{ width: '95%', margin:' 0px 2.5% 40px 2.5%' }} data-bs-theme="dark" >
-                <h1>Welcome back, {ownerName} </h1>
+            <Card style={{ width: '95%', margin:' 0px 2.5% 40px 2.5%', padding:'20px', textAlign:'center' }} data-bs-theme="dark" >
+                <h2>Welcome back, {ownerName} </h2>
             </Card>
           </Row>
           <Row style={{ width: '95%', margin:' 0px 2.5% 40px 2.5%' }} className="d-flex justify-content-between">
@@ -52,15 +52,17 @@ function Home( { ownerName }) {
             <Col sm={5} className="min-w-600" > {displayScatter}</Col>
           </Row>
           <Row style={{ width: '95%', margin:' 0px 2.5% 40px 2.5%' }} className="d-flex justify-content-between">
-            <Col sm={8}> 
+            <Col sm={7}> 
                     <Card style={{ width: '100%' }} data-bs-theme="dark" >
+                    <Card.Header>
+                          <h3>States in which a warehouse is present</h3>
+                    </Card.Header>
                     <Card.Body>
-                      <Card.Title> States in which a warehouse is present</Card.Title>
                       {displayMapPlot} 
                     </Card.Body>
                   </Card>
             </Col>
-            <Col sm={4}>{displayTransferData}</Col>
+            <Col sm={5}>{displayTransferData}</Col>
           </Row>
       </Container> 
     </div>

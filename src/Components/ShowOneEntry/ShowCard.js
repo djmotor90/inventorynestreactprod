@@ -22,12 +22,16 @@ function ShowCard ({ data }){
     //We will only fetch an image if we are a product or a customer
     const fetchFromBucket = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/images/${data.picture}`, {mode:'cors'});
-        setImageData(response.url);
+        //handling empty picture in db
+        if (data.picture !== ''){
+          const response = await fetch(`http://localhost:3001/images/${data.picture}`, {mode:'cors'});
+          setImageData(response.url);
+        }
+
       }
       catch (e) {
         //eventually will have to do something
-        //but for now just throw in the placeholder
+        //but for now just throw leave the placeholder by keeping the state null
         console.log(e, 'error')
       }
     }

@@ -163,8 +163,7 @@ function TransferForm ({ TransferFormData }){
                     </Col>
              </Form.Group>
              </Col>       
-
-             <Col md={{ span: 6, offset: 3 }}>
+             <Col md={{ span: 6, offset: 5 }} style={{marginTop:'20px'}}>
             <Form.Group as={Row} className="mb-3">
                 <Col sm={{ span: 10, offset: 0 }}>
                 <Button type="submit"> Make a Transfer</Button>

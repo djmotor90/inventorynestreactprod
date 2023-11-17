@@ -5,8 +5,10 @@ import Card      from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button    from 'react-bootstrap/Button';
 
-
-
+import Dollar     from '../assets/dollarLandingPage.jpg';
+import Receipt    from '../assets/receipt.jpg'
+import House      from '../assets/house.jpg';
+import Users      from '../assets/usersLanding.jpg'
 
 
 function LandingCard({ data }) {    
@@ -16,10 +18,10 @@ function LandingCard({ data }) {
     const handleViewAllSales = () =>{navigate(`/sales`);};
     const handleViewPerformanceAnalytics = () =>{navigate(`/reporting`);};
    return(
-    <ListGroup horizontal data-bs-theme="dark">
-    <ListGroup.Item>
-        <Card className="h-100 d-flex flex-column">
-            <Card.Img variant="top" src="https://placehold.co/600x400" />
+    <ListGroup horizontal data-bs-theme="dark" style={{backgroundColor:'transparent'}}>
+    <ListGroup.Item style={{backgroundColor:'transparent'}}>
+        <Card horizontal data-bs-theme="dark" className="h-100 d-flex flex-column">
+            <Card.Img variant="top" src={Users} />
             <Card.Body className="flex-grow-1">
                 <Card.Title> Customers </Card.Title>
                 <Card.Text>
@@ -29,9 +31,9 @@ function LandingCard({ data }) {
             <Button variant="btn btn-primary" onClick={() => handleViewAllCustomers()}> View All Customers </Button>
         </Card>
     </ListGroup.Item>
-    <ListGroup.Item>
-        <Card className="h-100 d-flex flex-column">
-            <Card.Img variant="top" src="https://placehold.co/600x400" />
+    <ListGroup.Item style={{backgroundColor:'transparent'}}>
+        <Card horizontal data-bs-theme="dark" className="h-100 d-flex flex-column">
+            <Card.Img variant="top" src={House} />
             <Card.Body className="flex-grow-1">
                 <Card.Title> Warehouses </Card.Title>
                 <Card.Text>
@@ -41,9 +43,9 @@ function LandingCard({ data }) {
             <Button variant="btn btn-primary" onClick={() => handleViewAllWarehouses()}> View All Warehouses </Button>
         </Card>
     </ListGroup.Item>
-    <ListGroup.Item>
-        <Card className="h-100 d-flex flex-column">
-            <Card.Img variant="top" src="https://placehold.co/600x400" />
+    <ListGroup.Item style={{backgroundColor:'transparent'}}>
+        <Card horizontal data-bs-theme="dark" className="h-100 d-flex flex-column">
+            <Card.Img variant="top" src={Receipt} />
             <Card.Body className="flex-grow-1">
                 <Card.Title> Sales </Card.Title>
                 <Card.Text>
@@ -53,9 +55,9 @@ function LandingCard({ data }) {
             <Button variant="btn btn-primary" onClick={() => handleViewAllSales()}> View All Sales </Button>
         </Card>
     </ListGroup.Item>
-    <ListGroup.Item>
+    <ListGroup.Item style={{backgroundColor:'transparent'}}>
         <Card className="h-100 d-flex flex-column">
-            <Card.Img variant="top" src="https://placehold.co/600x400" />
+            <Card.Img variant="top" src={Dollar} />
             <Card.Body className="flex-grow-1">
                 <Card.Title> Revenue </Card.Title>
                 <Card.Text>

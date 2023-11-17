@@ -56,7 +56,7 @@ function ShowCustomer (){
                 setTableLength(data.associateTable.length);
            }
           setName(data.showFormInfo.name);
-          //set delivery form data
+          setDeliveryFormData(data.purchaseFormData);
         }
         catch (e) {
           //eventually will have to do something
@@ -72,7 +72,7 @@ function ShowCustomer (){
       const displayperformanceCard = showFormData && <ShowCard data={showFormData}/>;
       //this table doesnt redirect anywhere, hence the null and null
       const displayTable = showTableData ? <GeneralTable data={[showTableData, null, null]}/> : <h5> {name} has not made any purchases</h5>;
-      const displaydeliveryForm = deliveryFormData && <DeliveryForm deliveryFormData={ deliveryFormData }/>;
+      const displaydeliveryForm = deliveryFormData && <DeliveryForm productData={ deliveryFormData }/>;
     return(
     <div>
         <Toast onClose={() => setToastShow(false)} data-bs-theme="dark" show={toastShow} delay={6000} autohide style = {{position:'fixed', right: '0', top: '10', width:'600px', height:'200px', zIndex:'10'}} bg='success'>

@@ -83,19 +83,12 @@ function PurchaseForm ({ purchaseFormData }){
                 body   : JSON.stringify(purchaseData)
             },{mode:'cors'});
             if(response.status !== 201){
-
                 const message = await response.json();
-                
-            }
-            else{
-
+            }else{
                 //handle error here
                 const message = await response.json();
                 navigate(`/products/${productId}?purchaseSuccess=true`);
                 navigate(0);
-                
-                //lets fix those state vars to show success
-
             }
 
         }
