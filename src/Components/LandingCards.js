@@ -52,7 +52,7 @@ function LandingCard({ data }) {
                     In total, you have made {data.salesCount} individual product sales.
                 </Card.Text>
             </Card.Body>
-            <Button variant="btn btn-primary" onClick={() => handleViewAllSales()}> View All Sales </Button>
+            <Button variant="btn btn-primary" onClick={() => handleViewAllSales()}> View All Sales Information </Button>
         </Card>
     </ListGroup.Item>
     <ListGroup.Item style={{backgroundColor:'transparent'}}>
@@ -61,10 +61,10 @@ function LandingCard({ data }) {
             <Card.Body className="flex-grow-1">
                 <Card.Title> Revenue </Card.Title>
                 <Card.Text>
-                    Grossly, you have made {data.revenueCount} dollars.
+                    Grossly, you have made {`$${data.revenueCount.toFixed(2)}`} dollars.
                 </Card.Text>
             </Card.Body>
-            <Button variant="btn btn-primary" onClick={() => handleViewPerformanceAnalytics()}> View Performance </Button>
+            <Button variant="btn btn-primary" onClick={() => handleViewPerformanceAnalytics()}> View Performance Information</Button>
         </Card>
     </ListGroup.Item>
 </ListGroup>

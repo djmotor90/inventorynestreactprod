@@ -82,7 +82,7 @@ function OffcanvasExample( { ownerName }) {
                           <BookFill/>
                           <span style = {{marginLeft:'10px'}}> User Manual  </span>
                     </Link></Nav.Link>
-                    <Nav.Link><Link to = "/customers/purchase/1" relative="path">
+                    <Nav.Link><Link to = "/customers/1" relative="path">
                           <CurrencyDollar/>
                           <span style = {{marginLeft:'10px'}}> Simulate a Purchase </span>
                     </Link></Nav.Link>
