@@ -107,7 +107,7 @@ function ShowWarehouse (){
                 <Card.Header as="h5">{name} has {tableLength} products stored inside </Card.Header>
                 <Card.Body>
                     <Card.Text>
-                      Click any entry below to view the product information
+                        Click any entry below to view the product information
                     </Card.Text>
                     <Col> {displayTable} </Col>
                 </Card.Body>
