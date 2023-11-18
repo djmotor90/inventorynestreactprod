@@ -17,8 +17,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-        
-
           # Change to the project directory
           cd inventorynestreactprod
           git pull origin master
@@ -31,5 +29,4 @@ jobs:
           pm2 stop inventorynestreactprod || true
 
           # Start the server using PM2 and npm run dev
-          pm2 reload inventorynestreactprod || pm2 start npm run dev --name inventorynestreactprod --watch
-
+          pm2 reload inventorynestreactprod || pm2 start --name inventorynestreactprod npm run dev --watch
