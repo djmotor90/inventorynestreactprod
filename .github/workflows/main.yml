@@ -17,10 +17,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          # Navigate to the project directory
           cd inventorynestreactprod
-
-          # Pull the latest changes
           git pull origin master
           git status
 
@@ -30,12 +27,12 @@ jobs:
           # Build the React app
           npm run build
 
+          # Install 'serve' if not already installed (uncomment the next line if needed)
+          npm install -g serve
+
           # Stop the existing PM2 process if it exists
-          pm2 delete inventorynestreactprod || true
+          pm2 stop inventorynestreactprod || true
 
           # Start the server using PM2 and serve
-          pm2 start serve --name inventorynestreactprod -p 3000 -s build -l pm2.log --watch --spa
-
-          # Ensure PM2 restarts after a reboot
-          pm2 save
-          pm2 startup
+          pm2 start "serve -s build" --name inventorynestreactprod -p 3000
+          
