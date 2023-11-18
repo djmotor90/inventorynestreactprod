@@ -1,26 +1,41 @@
 //Import in all needed hooks and dependencies
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //Import in all CSS and prestyled components
 import './App.css';
 //Import in our custom components
   //Custom components making the general frame
 import Navbar           from './Components/Navbar';
   //Custome components making the routes
-import Home               from './Components/Routes/Home';
-import ShowProducts       from './Components/Routes/ShowProducts';
-import ShowProduct        from './Components/Routes/ShowProduct';
-import NewProduct         from './Components/Routes/NewProduct';
-import ShowWarehouses     from './Components/Routes/ShowWarehouses';
-import ShowWarehouse      from './Components/Routes/ShowWarehouse';
-import NewWarehouse       from './Components/Routes/NewWarehouse';
-import ShowCustomers      from './Components/Routes/ShowCustomer';
-import ShowCustomer       from './Components/Routes/ShowCustomers';
-import NewCustomer        from './Components/Routes/NewCustomer';
-import Purchase           from './Components/Routes/Purchase';
-import Reporting          from './Components/Routes/Reporting';
-import Transfer           from './Components/Routes/Transfer';
-//import InventoryAdd       from './Components/Routes/InventoryAdd'
+import Home                       from './Components/Routes/Home';
+
+import ShowProducts               from './Components/Routes/ShowProducts';
+import ShowProduct                from './Components/Routes/ShowProduct';
+import NewProduct                 from './Components/Routes/NewProduct';
+import EditProduct                from './Components/Routes/EditProduct';
+//import SearchProducts                from './Components/Routes/SearchProducts';
+
+
+import ShowWarehouses             from './Components/Routes/ShowWarehouses';
+import ShowWarehouse              from './Components/Routes/ShowWarehouse';
+import NewWarehouse               from './Components/Routes/NewWarehouse';
+import EditWarehouse              from './Components/Routes/EditWarehouse';
+//import SearchWarehouses                from './Components/Routes/SearchProducts';
+
+
+import ShowCustomers              from './Components/Routes/ShowCustomers';
+import ShowCustomer               from './Components/Routes/ShowCustomer';
+import NewCustomer                from './Components/Routes/NewCustomer';
+import EditCustomer               from './Components/Routes/EditCustomer';
+//import SearchCustomers              from './Components/Routes/SearchProducts';
+import Sales                      from './Components/Routes/Sales'
+
+import Purchase                   from './Components/Routes/Purchase'; ///this is going to be exactly what is shown as the form secton of any ShowCust, but for cust w/ primary id of 1 nd only that form
+import Reporting                  from './Components/Routes/Reporting';
+import CustomerReporting          from './Components/Routes/CustomerReporting';
+import CustomerReportingCustomer          from './Components/Routes/CustomerReportingCustomer';
+import ProductReporting           from './Components/Routes/ProductReporting';
+import WarehouseReporting         from './Components/Routes/WarehouseReporting';
 
 
 
@@ -47,21 +62,32 @@ function App() {
     <div className="App">
       <Router>
         <Navbar ownerName={ownerName}/>
-        <div style={{marginTop:'40px'}}>
+        <div style={{paddingTop:'100px'}}>
           <Routes>
             <Route exact path='/' element={<Home ownerName={ownerName} />}/>
             <Route path='/products' element={<ShowProducts/>}/>
             <Route path='/products/new' element={<NewProduct/>}/>
             <Route path='/products/:id' element={<ShowProduct/>}/>
+            <Route path='/products/:id/edit' element={<EditProduct/>}/>
+
             <Route path='/warehouses' element = {<ShowWarehouses/>}/>
             <Route path='/warehouses/new' element = {<NewWarehouse/>}/>
             <Route path='/warehouses/:id' element = {<ShowWarehouse/>}/>
-            <Route path='/warehouses/:id/transfer' element = {<Transfer/>}/>
+            <Route path='/warehouses/:id/edit' element={<EditWarehouse/>}/>
+
             <Route path='/customers' element={<ShowCustomers/>}/>
             <Route path='/customers/new' element={<NewCustomer/>}/>
+            <Route path='/sales' element={<Sales/>}/>
             <Route path='/customers/:id' element={<ShowCustomer/>}/>
+            <Route path='/customer/:id/edit' element={<EditCustomer/>}/>
             <Route path='/customers/:id/buy' element={<Purchase/>}/>
+
             <Route path='/reporting' element={<Reporting/>}/>
+            <Route path='/reporting/customers' element={<CustomerReporting/>}/>
+            <Route path='/reporting/products' element={<ProductReporting/>}/>
+            <Route path='/reporting/customer/:id' element={<CustomerReportingCustomer/>}/>
+            <Route path='/reporting/product/:id' element={<ProductReporting/>}/>
+            <Route path='/reporting/warehouses' element={<WarehouseReporting/>}/>
           </Routes>
         </div>
       </Router>

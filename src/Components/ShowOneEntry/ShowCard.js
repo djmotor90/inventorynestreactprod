@@ -1,33 +1,82 @@
 //import all dependencies and Hooks
-import { useNavigate}  from "react-router-dom";
+import { useEffect, useState }           from "react";
+import { useNavigate, useLocation}       from "react-router-dom";
 //import in all bootstrap components
-import Card      from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Row       from 'react-bootstrap/Row';
-import Col       from 'react-bootstrap/Col';
+import Card        from 'react-bootstrap/Card';
+import ListGroup   from 'react-bootstrap/ListGroup';
+import Row         from 'react-bootstrap/Row';
+import Col         from 'react-bootstrap/Col';
+import Button      from 'react-bootstrap/Button';
 //import in all needed components
-    //for the warehouse, since we dont have a picture, we are instead going to put in a map component using its lat long
-    //which is sent over instead of the picture data (for now as  a placeholder we send over the pic filename)
+import GoogleMap   from './GoogleMap';
 //import in all assets
 import placeHolder from '../../assets/placeholder-600x400.jpg'
+
+
 function ShowCard ({ data }){
-    //there are 4 general categories, the id, the name, and the pic
+    //we can get the controller route we are in using this, need to implement elsewhere
+    const entryController = useLocation().pathname.split('/')[1];
     const navigate = useNavigate();
+    //there are 4 general categories, the id, the name, and the pic
+    const [imageData, setImageData] = useState(null);
+    //We will only fetch an image if we are a product or a customer
+    const fetchFromBucket = async () => {
+      try {
+        //handling empty picture in db
+        if (data.picture !== ''){
+          const response = await fetch(`http://localhost:3001/images/${data.picture}`, {mode:'cors'});
+          setImageData(response.url);
+        }
+
+      }
+      catch (e) {
+        //eventually will have to do something
+        //but for now just throw leave the placeholder by keeping the state null
+        console.log(e, 'error')
+      }
+    }
+    useEffect(() => {
+      if (entryController !== 'warehouses'){
+          fetchFromBucket();
+      }
+    }, []);
+    const imagesrc = imageData ? imageData : placeHolder;
+    const displayImage = entryController !== 'warehouses' ? <Card.Img variant="top" src={imagesrc} style={{height:'400px',backgroundSize:'contain'}} />
+                          : <GoogleMap latlong = {data.picture}/>;
+   
+
+    //button functionality
     const handleEditClick = () =>{
       navigate(`/${data.path}/${data.id}/edit`);
+    };
+
+    const handleDeleteClick = async () =>{
+      const url = (`http://localhost:3001/${data.path}/${data.id}`);
+      const response = await fetch(url, {
+          'method': 'DELETE'
+      });
+      if(response.status !== 201){
+        //TODO handle this error
+        console.log('error')
+        const message = await response.json();
+      }else{
+        //handle error here
+        const message = await response.json();
+        //navigate(`/${data.path}/?deleteSuccess=true`, {replace : true})
+      }
     }
     const displayList = Object.keys(data.list).map((item) => {
       return(
         <ListGroup.Item key={item}>
           <Row>
-            <Col sm={5}>{item}:</Col>
-            <Col sm={7}>{data.list[item]}</Col>
+            <Col sm={6}>{item}:</Col>
+            <Col sm={6}>{data.list[item]}</Col>
           </Row>
         </ListGroup.Item>
       )});
     return(
         <Card style={{ width: '38rem' }} data-bs-theme="dark" >
-        <Card.Img variant="top" src={placeHolder} />
+        {displayImage}
         <Card.Body>
           <Card.Title>{data.name}</Card.Title>
           <Card.Text>{data.description}</Card.Text>
@@ -35,10 +84,11 @@ function ShowCard ({ data }){
         <ListGroup className="list-group-flush">
               {displayList}
         </ListGroup>
-        <Card.Body>
-          <Card.Link onClick={() => handleEditClick()}>Edit This Entry</Card.Link>
+        <Card.Body className = 'd-flex justify-content-center'>
+          <Button variant="primary" style={{margin: '30px'}} onClick={() => handleEditClick()}>Edit This Entry</Button>
+          <Button variant="danger" style={{margin: '30px'}} onClick={() => handleDeleteClick()}>Delete this Entry</Button>
         </Card.Body>
-      </Card>
+        </Card>
     );
 };
 export default ShowCard;

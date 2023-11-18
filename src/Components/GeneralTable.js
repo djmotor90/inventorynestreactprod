@@ -11,7 +11,9 @@ function GeneralTable ({ data }){
     //handle row click 
     const navigate = useNavigate();
     const handleRowClick = (id) => {
-        navigate(`/${linkPath}/${id}`);   
+        if (linkPath !== null){
+            navigate(`/${linkPath}/${id}`);  
+        } 
     };
     //first make the header
     //note: will have to add in arrows
@@ -27,10 +29,18 @@ function GeneralTable ({ data }){
         }
     });
     const tableIndRow = (row) => {
-        //loop through the row object and remove every primaryID key
+        //loop through the row object and remove every primaryID key from displaying on the table
         return(
             Object.keys(row).map(key => {
+                //if the datatype this is getting is an array, i want a list for this td
+                if (typeof(row[key]) === 'object'){
+                    const makeAList = Object.keys(row[key]).map((index) => {
+                        return (<li key={index}> {row[key][index]} </li>)
+                    });
+                    return(<td key={key}><ul>{makeAList}</ul> </td>)
+                }else{
                     if (key !== id){return(<td key={key}> {row[key]} </td>)}
+                }
             })
         );
     };

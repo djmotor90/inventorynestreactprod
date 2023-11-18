@@ -4,13 +4,13 @@ import { useEffect, useState}      from "react";
 import GeneralTable                from '../GeneralTable';
 
 
-function ShowProducts (){
-    const [productData, setProductData] = useState(null);
+function Sales (){
+    const [salesData, setSalesData] = useState(null);
     const makeAPICall = async () => {
         try {
-          const response = await fetch('http://localhost:3001/products', {mode:'cors'});
+          const response = await fetch('http://localhost:3001/customers/sales', {mode:'cors'});
           const data = await response.json();
-          setProductData(data);
+          setSalesData(data);
         }
         catch (e) {
           console.log(e, 'error')
@@ -20,11 +20,11 @@ function ShowProducts (){
         makeAPICall();
       }, []);
       //components that will load in once data is ready
-      const displayTable = productData && <GeneralTable data={[productData,'product_id','products']}/>
+      const displayTable = salesData && <GeneralTable data={[salesData, null,null]}/>
     return(
         <div>
             {displayTable}
         </div>
     );
 };
-export default ShowProducts
+export default Sales;

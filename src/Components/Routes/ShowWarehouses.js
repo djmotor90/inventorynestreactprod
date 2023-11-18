@@ -1,19 +1,18 @@
 //import all dependencies and Hooks
-import { useEffect, useState } from "react";
-// import { Link }                from "react-router-dom";
-import GeneralTable            from '../GeneralTable'
-
-
+import { useEffect, useState}      from "react";
+import { Link, useSearchParams  }  from "react-router-dom";
+//Import all homemade components
+import GeneralTable                from '../GeneralTable';
 
 
 function ShowWarehouses (){
-    const [warehouseData, setWarehouseData] = useState(null);
+    const [productData, setProductData] = useState(null);
     const makeAPICall = async () => {
         try {
           const response = await fetch('http://localhost:3001/warehouses', {mode:'cors'});
           const data = await response.json();
-          setWarehouseData(data);
-
+          setProductData(data);
+          console.log(data)
         }
         catch (e) {
           console.log(e, 'error')
@@ -23,11 +22,12 @@ function ShowWarehouses (){
         makeAPICall();
       }, []);
       //components that will load in once data is ready
-      const displayTable = warehouseData && <GeneralTable data={[warehouseData,'warehouse_id','warehouses']}/>
+      const displayTable = productData && <GeneralTable data={[productData,'warehouse_id','warehouses']}/>
     return(
         <div>
             {displayTable}
         </div>
     );
 };
-export default ShowWarehouses
+export default ShowWarehouses;
+
