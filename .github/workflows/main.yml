@@ -22,13 +22,10 @@ jobs:
           git status
 
           # Install dependencies
-          npm install --only=prod
+          npm install
 
           # Build the React app
           npm run build
-
-          # Install 'serve' if not already installed (uncomment the next line if needed)
-          npm install -g serve
 
           # Stop the existing PM2 process if it exists
           pm2 stop inventorynestreactprod || true
