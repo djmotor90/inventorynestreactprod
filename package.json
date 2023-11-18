@@ -28,7 +28,7 @@
     "us-state-converter": "^1.0.6",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://132.145.219.172/:3001",
   "scripts": {
     "start": "PORT=3000 HOST=0.0.0.0 react-scripts start",
     "build": "react-scripts build",
