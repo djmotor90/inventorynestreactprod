@@ -35,6 +35,7 @@ import Reporting                  from './Components/Routes/Reporting';
 import CustomerReporting          from './Components/Routes/CustomerReporting';
 import CustomerReportingCustomer          from './Components/Routes/CustomerReportingCustomer';
 import ProductReporting           from './Components/Routes/ProductReporting';
+import WarehouseReporting         from './Components/Routes/WarehouseReporting';
 
 
 
@@ -86,6 +87,7 @@ function App() {
             <Route path='/reporting/products' element={<ProductReporting/>}/>
             <Route path='/reporting/customer/:id' element={<CustomerReportingCustomer/>}/>
             <Route path='/reporting/product/:id' element={<ProductReporting/>}/>
+            <Route path='/reporting/warehouses' element={<WarehouseReporting/>}/>
           </Routes>
         </div>
       </Router>
