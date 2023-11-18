@@ -35,4 +35,3 @@ jobs:
 
           # Start the server using PM2 and serve
           pm2 reload inventorynestreactprod || pm2 start "serve -s build" --name inventorynestreactprod --watch
-          
