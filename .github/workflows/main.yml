@@ -17,8 +17,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          # Set the PATH to include the location of Node.js and global npm packages
-          export PATH="/home/ubuntu/.nvm/versions/node/v18.17.1/bin:$PATH"
+        
 
           # Change to the project directory
           cd inventorynestreactprod
