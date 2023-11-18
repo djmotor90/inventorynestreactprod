@@ -36,7 +36,7 @@ function ReportingCard({ data }) {
         );
     }
     return(
-        <Card style={{ width: '830px'}} id="reportingCard" data-bs-theme="dark">
+        <Card style={{ width: '570px'}} id="reportingCard" data-bs-theme="dark">
             <Card.Header> <h3>Activity</h3> </Card.Header>
             <Card.Body>
                 {cards()}

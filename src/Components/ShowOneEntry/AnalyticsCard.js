@@ -23,7 +23,7 @@ function AnalyticsCard ({ data }){
         </ListGroup.Item>
       )});
     return(
-        <Card style={{ width: '720px' }} data-bs-theme="dark" >
+        <Card style={{ width: '38rem' }} data-bs-theme="dark" >
                 <BarPlot data = {data.barData} type = 'quantity'/>
             <Card.Body>
             <Card.Title>Performance Analytics:</Card.Title>

@@ -13,6 +13,7 @@ import logo      from '../../assets/inventoryNestLogo.png';
 import ShowCard         from '../ShowOneEntry/ShowCard';
 import GeneralTable     from "../GeneralTable";
 import DeliveryForm     from '../ShowOneEntry/DeliveryForm';
+import AnalyticsCard    from "../ShowOneEntry/AnalyticsCard";
 
 function ShowCustomer (){
     const { id } = useParams();
@@ -37,6 +38,7 @@ function ShowCustomer (){
     };
     //populating all needed data
     const [showFormData, setShowFormData] = useState(null);
+    const [showAnalyticsInfo, setShowAnalyticsData] = useState(null);
     const [showTableData, setShowTableData] = useState(null);
     const [name, setName] = useState(null);
     const [tableLength, setTableLength] = useState(0);
@@ -48,6 +50,7 @@ function ShowCustomer (){
           //lets add to each one the name of the route //NOTE could actually do this w react router dom
           data.showFormInfo.path = 'customers';
           setShowFormData(data.showFormInfo);
+          setShowAnalyticsData(data.showAnalyticsInfo);
           //if the product isnt in any warehouses, this will be an empty array
            if (data.associateTable.length === 0){
                 setTableLength(data.associateTable.length);
@@ -69,7 +72,7 @@ function ShowCustomer (){
       }, []);
       //wait until data loads to populate your components
       const displayCard = showFormData && <ShowCard data={showFormData}/>;
-      const displayperformanceCard = showFormData && <ShowCard data={showFormData}/>;
+      const displayperformanceCard = showAnalyticsInfo && <AnalyticsCard data={showAnalyticsInfo}/>;
       //this table doesnt redirect anywhere, hence the null and null
       const displayTable = showTableData ? <GeneralTable data={[showTableData, null, null]}/> : <h5> {name} has not made any purchases</h5>;
       const displaydeliveryForm = deliveryFormData && <DeliveryForm productData={ deliveryFormData }/>;

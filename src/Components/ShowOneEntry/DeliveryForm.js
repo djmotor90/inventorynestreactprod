@@ -1,13 +1,12 @@
 //Note: this could probably just be generalized out to form eventually, but fr now this will generate just blank forms
 //Import in all required hooks and dependencies
-import { useEffect, useState }               from "react";
+import { useState }                          from "react";
 import { useNavigate, useParams}             from "react-router";
 //Import  in all components
 import Form   from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col    from 'react-bootstrap/Col';
 import Row    from 'react-bootstrap/Row';
-import PurchaseForm from "./PurchaseForm";
 
 function DeliveryForm ({ productData }){
     //set up navigation for success naivgation
@@ -22,15 +21,18 @@ function DeliveryForm ({ productData }){
     //make your product selects
     // Next, on user submit, we will post to the database
     const handleSubmit = async (event) => {
+      console.log(formFields);
       event.preventDefault();
         //doing some front end validation
         const form = event.currentTarget;
         //none of my product_id's can be '' and amount < stock
+        let allProduct_Ids = [];
         let myCustomValidator = true;
         formFields.forEach(input => {
-            if(input.product_id === '' || input.amount > input.stock){
+            if(input.product_id === '' || input.amount > input.stock || allProduct_Ids.includes(input.product_id)){
                 myCustomValidator = false;
             }
+            allProduct_Ids.push(input.product_id);
         });
         if (form.checkValidity() === false || !myCustomValidator ) {
             event.preventDefault();
@@ -45,7 +47,7 @@ function DeliveryForm ({ productData }){
                     'accept'       : 'application/json',
                     'content-type' : 'application/json'
                 },
-                body   : JSON.stringify(purchaseData)
+                body   : JSON.stringify(formFields)
             },{mode:'cors'});
             if(response.status !== 201){
 
@@ -123,6 +125,7 @@ function DeliveryForm ({ productData }){
                                     type="number"
                                     name='amount' 
                                     min="1" 
+                                    max = {form.stock}
                                     value={form.amount}
                                 />
                             </Col>

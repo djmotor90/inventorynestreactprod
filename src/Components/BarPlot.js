@@ -19,13 +19,13 @@ function BarPlot({ data, type }) {
     title="Quantity Sold"
   }
   return(
-      <Card  data-bs-theme="dark" style={{minWidth:'680px'}}>
+      <Card  data-bs-theme="dark" style={{minWidth:'500px'}}>
       <Card.Header>
             <h3> {title} Over The Past 10 Days</h3>
       </Card.Header>
       <Card.Body>
           <BarChart
-              width={640}
+              width={500}
               height={300}
               data={formattedData.reverse()}
               margin={{
