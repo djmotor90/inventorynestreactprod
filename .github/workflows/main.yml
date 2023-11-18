@@ -17,16 +17,12 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          # Set the PATH to include the location of Node.js and global npm packages
-          export PATH="/home/ubuntu/.nvm/versions/node/v18.17.1/bin:$PATH"
-
-          # Change to the project directory
           cd inventorynestreactprod
           git pull origin master
           git status
 
           # Install dependencies
-          npm install --only=prod
+          npm install
 
           # Build the React app
           npm run build
@@ -34,5 +30,5 @@ jobs:
           # Stop the existing PM2 process if it exists
           pm2 stop inventorynestreactprod || true
 
-          # Start the server using PM2 and the full path to 'serve'
-          pm2 reload inventorynestreactprod || pm2 start "/home/ubuntu/.nvm/versions/node/v18.17.1/bin/serve -s build" --name inventorynestreactprod --watch
+          # Start the server using PM2 and serve
+          pm2 reload inventorynestreactprod || pm2 start "serve -s build" --name inventorynestreactprod --watch
