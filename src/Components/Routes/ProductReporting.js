@@ -11,7 +11,7 @@ function Reporting() {
   // Function to fetch product data from the server
   const fetchProductData = async () => {
     try {
-      const response = await fetch('http://localhost:3001/reporting/products', { mode: 'cors' });
+      const response = await fetch('http://132.145.219.172:3001/reporting/products', { mode: 'cors' });
       if (!response.ok) {
         throw new Error('Failed to fetch product data');
       }
