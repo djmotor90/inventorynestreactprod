@@ -15,7 +15,7 @@ function EditCustomer (){
     const [formInputData, setFormInputData] = useState(null);
     const makeAPICall = async () => {
         try {
-          const response = await fetch(`http://localhost:3001/customers/${id}/edit`, {mode:'cors'});
+          const response = await fetch(`http://132.145.219.172:3001/customers/${id}/edit`, {mode:'cors'});
           const data = await response.json();
           setFormInputData(data);
         }

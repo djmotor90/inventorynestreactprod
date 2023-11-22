@@ -24,7 +24,7 @@ function ShowCard ({ data }){
       try {
         //handling empty picture in db
         if (data.picture !== ''){
-          const response = await fetch(`http://localhost:3001/images/${data.picture}`, {mode:'cors'});
+          const response = await fetch(`http://132.145.219.172:3001/images/${data.picture}`, {mode:'cors'});
           setImageData(response.url);
         }
 
@@ -51,7 +51,7 @@ function ShowCard ({ data }){
     };
 
     const handleDeleteClick = async () =>{
-      const url = (`http://localhost:3001/${data.path}/${data.id}`);
+      const url = (`http://132.145.219.172:3001/${data.path}/${data.id}`);
       const response = await fetch(url, {
           'method': 'DELETE'
       });

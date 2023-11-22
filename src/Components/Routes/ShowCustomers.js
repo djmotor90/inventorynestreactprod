@@ -8,7 +8,7 @@ function ShowCustomers (){
     const [customerData, setCustomerData] = useState(null);
     const makeAPICall = async () => {
         try {
-          const response = await fetch('http://localhost:3001/customers', {mode:'cors'});
+          const response = await fetch('http://132.145.219.172:3001/customers', {mode:'cors'});
           const data = await response.json();
           setCustomerData(data);
         }

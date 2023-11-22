@@ -14,7 +14,7 @@ function CustomerReporting() {
   useEffect(() => {
     const fetchCustomerData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/reporting/customers', { mode: 'cors' });
+        const response = await fetch('http://132.145.219.172:3001/reporting/customers', { mode: 'cors' });
         if (!response.ok) {
           throw new Error('Failed to fetch customer data');
         }
@@ -49,7 +49,7 @@ function CustomerReporting() {
   useEffect(() => {
     const fetchTopCustomers = async () => {
       try {
-        const response = await fetch('http://localhost:3001/reporting/customerorders', { mode: 'cors' });
+        const response = await fetch('http://132.145.219.172:3001/reporting/customerorders', { mode: 'cors' });
         if (!response.ok) {
           throw new Error('Failed to fetch top customers');
         }
@@ -59,7 +59,7 @@ function CustomerReporting() {
           const updatedData = data.map(customer => ({
             ...customer,
             customer_picture_url: customer.customer_picture_filename
-              ? `http://localhost:3001/images/${customer.customer_picture_filename}`
+              ? `http://132.145.219.172:3001/images/${customer.customer_picture_filename}`
               : null
           }));
           setTopCustomers(updatedData);

@@ -18,7 +18,7 @@ function Reporting() {
       const data = await response.json();
       const updatedData = data.map(product => ({
         ...product,
-        product_picture_url: `http://localhost:3001/images/${product.product_picture_filename}`
+        product_picture_url: `http://132.145.219.172:3001/images/${product.product_picture_filename}`
       }));
 
       if (Array.isArray(updatedData)) {

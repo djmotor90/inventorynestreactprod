@@ -40,7 +40,7 @@ function DeliveryForm ({ productData }){
             setValidated(true);
         }else{
             setValidated(true);
-            const url = (`http://localhost:3001/customers/${id}`);
+            const url = (`http://132.145.219.172:3001/customers/${id}`);
             const response = await fetch(url, {
                 method : 'POST',
                 headers: {

@@ -46,7 +46,7 @@ function ShowWarehouse (){
     const [purchaseFormData, setPurchaseFormData] = useState(null);
     const makeAPICall = async () => {
         try {
-          const response = await fetch(`http://localhost:3001/warehouses/${id}`, {mode:'cors'});
+          const response = await fetch(`http://132.145.219.172:3001/warehouses/${id}`, {mode:'cors'});
           const data = await response.json();
           //lets add to each one the name of the route
           data.showFormInfo.path = 'warehouses';

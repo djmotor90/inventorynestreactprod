@@ -43,7 +43,7 @@ function App() {
     const [ownerName, setOwnerName] = useState('');
     const makeAPICall = async () => {
         try {
-          const response = await fetch('http://localhost:3001/navbar', {mode:'cors'});
+          const response = await fetch('http://132.145.219.172:3001/navbar', {mode:'cors'});
           const data = await response.json();
           setOwnerName(`${data.owner_first_name} ${data.owner_last_name}`);
         }

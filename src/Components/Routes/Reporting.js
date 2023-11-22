@@ -9,7 +9,7 @@ function Reporting({ ownerName }) {
   // Function to fetch owner data from the server
   const fetchOwnerData = async () => {
     try {
-      const response = await fetch('http://localhost:3001/reporting', { mode: 'cors' });
+      const response = await fetch('http://132.145.219.172:3001/reporting', { mode: 'cors' });
       if (!response.ok) {
         throw new Error('Failed to fetch owner data');
       }

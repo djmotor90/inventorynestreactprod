@@ -45,7 +45,7 @@ function ShowCustomer (){
     const [deliveryFormData, setDeliveryFormData] = useState(null);
     const makeAPICall = async () => {
         try {
-          const response = await fetch(`http://localhost:3001/customers/${id}`, {mode:'cors'});
+          const response = await fetch(`http://132.145.219.172:3001/customers/${id}`, {mode:'cors'});
           const data = await response.json();
           //lets add to each one the name of the route //NOTE could actually do this w react router dom
           data.showFormInfo.path = 'customers';

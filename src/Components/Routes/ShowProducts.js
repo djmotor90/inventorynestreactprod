@@ -8,7 +8,7 @@ function ShowProducts (){
     const [productData, setProductData] = useState(null);
     const makeAPICall = async () => {
         try {
-          const response = await fetch('http://localhost:3001/products', {mode:'cors'});
+          const response = await fetch('http://132.145.219.172:3001/products', {mode:'cors'});
           const data = await response.json();
           setProductData(data);
         }

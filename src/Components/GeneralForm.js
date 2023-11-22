@@ -49,11 +49,11 @@ function NewForm ({ data, path, type }){
             let url =``;
             let method=``;
             if (type === 'new'){
-                url = (`http://localhost:3001/${path}`);
+                url = (`http://132.145.219.172:3001/${path}`);
                 method ="POST"
             }else{
                 console.log(id);
-                url = (`http://localhost:3001/${path}/${id}`);
+                url = (`http://132.145.219.172:3001/${path}/${id}`);
                 method="PUT"
             };
             const response = await fetch(url, {
